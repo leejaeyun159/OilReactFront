@@ -1,5 +1,5 @@
 import styles from "./DetailGraph.module.css";
-import {ProgressBar,Card,Wave} from "../UI/";
+import {ProgressBar,Card,Wave,Nav} from "../UI/";
 
 const CoditionPer = {
   R: 81,
@@ -10,7 +10,7 @@ const CoditionPer = {
 const DetailGraph = () => {
     return (
       <div className={styles.div}>
-        <h3>오늘의 색깔</h3>
+        <Nav pageTitle="감정 상세보기"/>
         <div className="ConditionBox">
           <Card>
             <label>NEGATIVE {CoditionPer["R"].toFixed(1)}%</label>

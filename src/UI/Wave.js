@@ -14,7 +14,7 @@ const Wrap = styled.div`
   );
   box-shadow: 0px 13px 11px #bbbbbb;
   transform: translate3d(0, 0, 0);
-  margin: 50px auto;
+  margin: 0 auto;
 
 `;
 const WaveCompo = styled.div`

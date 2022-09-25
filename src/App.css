@@ -6,3 +6,10 @@
 Light 300
 Medium 500
 Bold 700 */
+
+#root {
+    --maincolor: #002560;
+    --semiSilver: #DBDBDB;
+    --backBlue: #e6eefb;
+    
+}
