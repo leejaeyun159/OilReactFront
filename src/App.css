@@ -1,10 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;300;500;700&display=swap');
-*{
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;300;500;700&family=Noto+Serif+KR:wght@200;400;500;700&family=Oswald:wght@700&display=swap');*{
     font-family: 'Gothic A1', sans-serif;
+    /* font-family: 'Noto Serif KR', serif;
+    font-family: 'Oswald', sans-serif; */
 }
-/* Thin 100
+/* 
+Gothic A1
+Thin 100
 Light 300
 Medium 500
+Bold 700 */
+
+/* Noto Serif KR
+ExtraLight 200
+Regular 400
+Medium 500
+Bold 700 */
+
+/* Oswald
 Bold 700 */
 
 #root {

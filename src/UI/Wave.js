@@ -1,8 +1,8 @@
 import styled from'styled-components'
 
 const Wrap = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   position: relative;
   overflow: hidden;
   border-radius: 50%;
@@ -14,7 +14,7 @@ const Wrap = styled.div`
   );
   box-shadow: 0px 13px 11px #bbbbbb;
   transform: translate3d(0, 0, 0);
-  margin: 0 auto;
+  margin: 20px auto;
 
 `;
 const WaveCompo = styled.div`

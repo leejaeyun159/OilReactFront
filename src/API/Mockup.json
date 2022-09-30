@@ -1,0 +1,29 @@
+{
+    "document": {
+        "sentiment": "neutral",
+        "confidence": {
+            "negative": 0.055444483,
+            "positive": 0.021477062,
+            "neutral": 99.92308
+        }
+    },
+    "sentences": [
+        {
+            "content": "엄준식",
+            "offset": 0,
+            "length": 3,
+            "sentiment": "neutral",
+            "confidence": {
+                "negative": 5.544448E-4,
+                "positive": 2.1477061E-4,
+                "neutral": 0.99923074
+            },
+            "highlights": [
+                {
+                    "offset": 0,
+                    "length": 3
+                }
+            ]
+        }
+    ]
+}
