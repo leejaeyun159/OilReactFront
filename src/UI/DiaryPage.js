@@ -17,7 +17,7 @@ const Background = styled.div`
   border-radius: 0 0 15px 0;
   height: 80px;
   margin: 10px auto 0 auto;
-  min-width: 375px;
+  min-width: 280px;
   max-width: 700px;
   background-color: var(--backBlue);
   position: relative;
@@ -26,6 +26,7 @@ const Background = styled.div`
     position: absolute;
     left: 20px;
     top: 20px;
+    color:var(--maincolor);
     font-weight: 700;
     z-index: 2;
   }

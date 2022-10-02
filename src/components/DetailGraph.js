@@ -1,24 +1,22 @@
-import styles from "./DetailGraph.module.css";
-import {ProgressBar, Card, Wave, Nav, DiaryPage, Highlight} from "../UI/";
-import TextField from '../UI/TextField';
-import Button from "../UI/Button";
+import styled from "./DetailGraph.module.css";
+import {ProgressBar, Card, Wave, DiaryPage, Highlight} from "../UI/";
 
 const CoditionPer = {
   R: 100,
   G: 100,
   B: 100
 };
+
 const DiaryConent = {
   main: '몰랐던 좋은 포맨 노래를 발견했다',
   days:'20220519 AM',
   weather:'Cloudy Weather',
-  mmdd:'0927'
-}
+  mmdd:'0519'
+};
 
 const DetailGraph = () => {
     return (
-      <div className={styles.div}>
-        <Nav pageTitle="감정 상세보기" />
+      <div className={styled.div}>
         <div className="ConditionBox">
           <DiaryPage
             main={DiaryConent["main"]}
@@ -32,7 +30,7 @@ const DetailGraph = () => {
             우리는 남의 기쁨에서 우리 자신의 슬픔을 뽑아오고
             <br /> 남의 슬픔에서 기쁨을 얻어온다
           </p>
-          <Card>
+          <Card mxWidth="600">
             <Highlight text="오늘따라 갑자기 니 생각이 나니까" />
             <ProgressBar
               color={"#AAC4FF"}
@@ -57,11 +55,7 @@ const DetailGraph = () => {
           </Card>
           <h4>피드로 돌아가기</h4>
         </div>
-        <TextField place="이메일을 입력하세요" type="text" />
-        <br />
-        <TextField place="⦁⦁⦁⦁⦁⦁⦁⦁" type="password" />
-        <br/>
-        <Button type="submit" child="로그인" padding="13"/>
+
       </div>
     );};
 

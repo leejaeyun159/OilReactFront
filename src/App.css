@@ -25,3 +25,10 @@ Bold 700 */
     --backBlue: #e6eefb;
     
 }
+
+#contentPage {
+    width:100%;
+    min-height: 100vh;
+    max-width: 700px;
+    margin: 0 auto;
+}

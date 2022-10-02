@@ -4,6 +4,9 @@ import Wave from "./Wave";
 import Nav from "./Nav";
 import DiaryPage from "./DiaryPage";
 import Highlight from "./Highlight";
+import TextField from "./TextField";
+import Button from "./Button";
+import Footer from './Footer'
 
 export {
     ProgressBar,
@@ -11,5 +14,8 @@ export {
     Wave,
     Nav,
     DiaryPage,
-    Highlight
+    Highlight,
+    TextField,
+    Button,
+    Footer
 }

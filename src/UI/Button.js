@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ButtonInner = styled.button`
-  padding: ${(props) => props.padding_}px 120px;
+  padding: 13px ${(props) => props.padding_}px;
   border:none;
   background-color: var(--maincolor);
   color:white;

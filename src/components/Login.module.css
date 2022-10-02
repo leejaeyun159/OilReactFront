@@ -1,0 +1,25 @@
+.div {
+    margin: auto;
+    min-width:200px;
+    /* max-width:700px; */
+    text-align: center;
+}
+
+.div > img {
+    width: 200px;
+    margin: 80px 0;
+}
+
+.div > p {
+    margin: 15px 0 0 0;
+    font-weight: 400;
+    
+}
+
+.div > div > div > a {
+    color: var(--maincolor);
+    margin: 7px 0;
+    font-weight: 300;
+    font-size: 13px;
+    text-decoration: none;
+}

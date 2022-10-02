@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const OilNav = styled.div`
   padding: 20px 0;
@@ -24,6 +25,12 @@ const RightChild = styled.div`
   margin: auto;
 `;
 
+const Img = styled.img`
+  width: "${(props) => props.width}";
+  height: "${(props) => props.height}";
+  src: "${(props) => props.logo}";
+`;
+
 const Button = styled.button`
   width: 40px;
   height: 40px;
@@ -39,11 +46,29 @@ const Nav = (props) => {
   return (
     <OilNav>
       <LeftChild>
-        <Button logo="/asset/oil-logo.png" size="40px 30px" />
+        {props.Auth ? (
+          <Link to="/mainFeed">
+            <Img src="/asset/oilLogo.png" width="40px" height="30px" />
+          </Link>
+        ) : (
+          <Link to="/">
+            <Img src="/asset/oilLogo.png" width="40px" height="30px" />
+          </Link>
+        )}
       </LeftChild>
-      <HeadText>{props.pageTitle}</HeadText>
+      <HeadText>{
+        props.pageTitle
+      }</HeadText>
       <RightChild>
-        <Button logo="/asset/category.png" size="22px 22px" />
+        {props.Auth ? (
+          <Button>
+            <Img src="/asset/category.png" width="22px" height="22px" />
+          </Button> /*카테고리 모달창 */
+        ) : (
+          <Link to="/login">
+            <Img src="/asset/login.png" width="22px" height="22px" />
+          </Link>
+        )}
       </RightChild>
     </OilNav>
   );

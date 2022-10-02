@@ -1,17 +1,16 @@
 import styled from "styled-components";
 
 const Field = styled.input`
-  padding: 13px;
-  width: 30%;
-  min-width:250px;
-  max-width: 400px;
+  padding: 15px;
   border: none;
   outline: none;
   border-bottom: 2px solid var(--maincolor);
+  background-color: transparent;
+  margin: 5px 0;
 
   &:focus {
     animation: focusBlue 0.2s forwards;
-    }
+  }
 
   @keyframes focusBlue {
     0% {
