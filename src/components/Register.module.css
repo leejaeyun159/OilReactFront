@@ -1,3 +1,38 @@
-.div{
-    
+.div>div {
+    margin-top: 50px;
+}
+
+.div>div>h3 {
+    /* padding:5px; */
+    color: var(--maincolor);
+    border-bottom: 2px solid var(--backBlue);
+}
+
+.div>div>p {
+    color: grey;
+    margin: 0;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+.div>div>span {
+    display: flex;
+    justify-content: space-around;
+}
+
+.div > div > div{
+    padding:10px;
+    margin: 20px 0;
+    color:grey;
+    border: 1px solid var(--maincolor);
+    overflow: scroll;
+    height: 200px;
+}
+
+.div > div > a {
+    text-align: center;
+}
+
+.div>div>a>input {
+    width: 100%;
 }

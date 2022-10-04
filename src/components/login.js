@@ -10,7 +10,9 @@ const Login = () => {
         <Card mxWidth="350">
           <TextField place="이메일을 입력하세요" type="text" />
           <TextField place="⦁⦁⦁⦁⦁⦁⦁⦁" type="password" />
-          <Button type="submit" child="로그인" padding="10" />
+          <Link to="/Diary/Detail">
+            <Button type="submit" child="로그인" padding="10" />
+          </Link>
         </Card>
         <Card>
           <Link to="/findPW">비밀번호 찾기</Link>
