@@ -24,12 +24,14 @@ const Field = styled.input`
 `;
 
 const TextField =(props)=>{
-    return(
-    <Field 
-    fsize = {props.fsize}
-    placeholder={props.place}
-    type={props.type}>
-    </Field>
-    )
+    return (
+      <Field
+        onBlur={props.onBlur}
+        onChange={props.onChange}
+        fsize={props.fsize}
+        placeholder={props.place}
+        type={props.type}
+      ></Field>
+    );
 }
 export default TextField; 

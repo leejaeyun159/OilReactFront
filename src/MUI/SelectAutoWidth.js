@@ -20,16 +20,20 @@ export default function SelectVariants(props) {
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, 
-        minWidth: 60,
-        }}>
-        <InputLabel id="demo-simple-select-standard-label">{props.label}</InputLabel>
+      <FormControl variant="standard" sx={{ m: 2, minWidth: 70 }}>
+        <InputLabel
+          id="demo-simple-select-standard-label"
+          sx={{ fontSize: 14 }}
+        >
+          {props.label}
+        </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           value={pick}
           onChange={handleChange}
           label={props.label}
+          sx={{ fontSize: 14 }}
         >
           {Option}
         </Select>

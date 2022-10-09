@@ -16,8 +16,8 @@ import Register from './components/Register';
 import SearchingPage from './components/SearchingPage';
 
 const App =()=>{
-  const isLogin = false; //로그인 여부
-// const isLogin = true;
+  // const isLogin = false; //로그인 여부
+const isLogin = true;
 
   return (
     <div id="root">

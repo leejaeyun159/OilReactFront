@@ -9,6 +9,7 @@ export default function LoadingButtonsTransition(props) {
       <Box
         sx={{
           "& > button": {
+            m:1,
             maxHeight: 43,
             maxWidth: 60,
             whiteSpace: "nowrap",
