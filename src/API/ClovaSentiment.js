@@ -8,6 +8,7 @@ const ClovaSentiment = () =>{
   
   return (
       <Card>
+        
         <form onSubmit={textBoxHandler}>
           <textarea name='content'></textarea>
           <input type='submit' value='submit'></input>

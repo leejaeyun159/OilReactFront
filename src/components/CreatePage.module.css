@@ -1,0 +1,22 @@
+.form > div{
+    background-color: #f7faff;
+    border-radius: 0 0 15px 0;
+    margin-top:20px;
+    box-shadow: 0px 3px 7px #bbbbbb;
+    
+}
+
+.form >div > div{
+    height: 60px;
+    background-color:white;
+    box-shadow: 0px 2px 4px #bbbbbb;
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+    justify-content: center;
+}
+
+.form > div > input {
+    border:none;
+    color:#363636;
+}

@@ -11,7 +11,7 @@ import FindPassword from './components/FindPassword';
 import InitialPage from './components/InitialPage'
 import Login from "./components/Login";
 import MainFeed from './components/MainFeed';
-import PostingPage from './components/PostingPage';
+import CreatePage from './components/CreatePage';
 import Register from './components/Register';
 import SearchingPage from './components/SearchingPage';
 
@@ -22,21 +22,21 @@ const App =()=>{
   return (
     <div id="root">
       <BrowserRouter>
-          <Nav pageTitle="오늘의 일기" Auth={isLogin} />
+        <Nav pageTitle="오늘의 일기" Auth={isLogin} />
         <div id="contentPage">
           <Routes>
-            <Route path="/Calendar" element={<Calendar/>}/>
-            <Route path="/Diary/detail" element={<DetailGraph/>}/>
-            <Route path="/findPw" element={<FindPassword/>}/>
+            <Route path="/Calendar" element={<Calendar />} />
+            <Route path="/Diary/detail" element={<DetailGraph />} />
+            <Route path="/findPw" element={<FindPassword />} />
             <Route exact path="/" element={<InitialPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mainFeed" element={<MainFeed />} />
-            <Route path="/post" elemenet={<PostingPage/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/search" element={<SearchingPage/>}/>
+            <Route path="/create" element={<CreatePage/>} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/search" element={<SearchingPage />} />
           </Routes>
         </div>
-          <Footer />
+        <Footer />
       </BrowserRouter>
     </div>
   );

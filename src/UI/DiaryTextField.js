@@ -1,14 +1,19 @@
 import styled from "styled-components";
 
-const Field = styled.input`
+const Field = styled.textarea`
   padding: 15px;
   border: none;
   outline: none;
   border-bottom: 2px solid var(--maincolor);
   background-color: transparent;
-  margin: 5px 0;
-  font-size: ${(props)=>props.fsize}px;
-  font-weight:700;
+  margin: 5px;
+  font-size:15px;
+  font-weight:500;
+
+  height: 50vh;
+  border: none;
+  resize: none;
+  
   &:focus {
     animation: focusBlue 0.2s forwards;
   }
@@ -23,13 +28,10 @@ const Field = styled.input`
   }
 `;
 
-const TextField =(props)=>{
-    return(
-    <Field 
-    fsize = {props.fsize}
-    placeholder={props.place}
-    type={props.type}>
-    </Field>
-    )
-}
-export default TextField; 
+const DiaryTextField = (props) => {
+  return <Field placeholder={props.place} 
+          type={props.type}
+        
+          ></Field>;
+};
+export default DiaryTextField;
