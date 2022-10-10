@@ -31,7 +31,8 @@ const Field = styled.textarea`
 const DiaryTextField = (props) => {
   return <Field placeholder={props.place} 
           type={props.type}
-        
+          onBlur={props.onBlur}
+          onChange={props.onChange}
           ></Field>;
 };
 export default DiaryTextField;

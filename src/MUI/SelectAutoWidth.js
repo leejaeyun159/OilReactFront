@@ -5,18 +5,13 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function SelectVariants(props) {
-  const [pick, setPick] = React.useState("");
 
-  const handleChange = (event) => {
-    setPick(event.target.value);
-  };
-    const selectList = props.list;
-    const Option =
-      selectList && selectList.map((element) => (
-        <MenuItem key={element.value} value={element.value}>
-          {element.name}
-        </MenuItem>
-      ));
+  const selectList = props.list;
+  const Option = selectList && selectList.map((element) => (
+    <MenuItem key={element.value} value={element.value}>
+      {element.name}
+    </MenuItem>
+  ));
 
   return (
     <div>
@@ -30,8 +25,9 @@ export default function SelectVariants(props) {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={pick}
-          onChange={handleChange}
+          value={props.pick}
+          onBlur={props.onBlur}
+          onChange={props.onChange}
           label={props.label}
           sx={{ fontSize: 14 }}
         >

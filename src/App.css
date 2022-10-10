@@ -32,3 +32,11 @@ Bold 700 */
     max-width: 700px;
     margin: 0 auto;
 }
+html,body{
+    margin:0;
+    padding:0;
+}
+body {
+    padding-right: 0 !important;
+    /* modal 창 띄웠을 때 오류 방지 */
+}

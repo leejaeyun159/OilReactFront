@@ -16,8 +16,8 @@ import Register from './components/Register';
 import SearchingPage from './components/SearchingPage';
 
 const App =()=>{
-  // const isLogin = false; //로그인 여부
-const isLogin = true;
+  const isLogin = false; //로그인 여부
+// const isLogin = true;
 
   return (
     <div id="root">
@@ -31,7 +31,7 @@ const isLogin = true;
             <Route exact path="/" element={<InitialPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mainFeed" element={<MainFeed />} />
-            <Route path="/create" element={<CreatePage/>} />
+            {/* <Route path="/createPage" element={<CreatePage/>} /> */}
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<SearchingPage />} />
           </Routes>

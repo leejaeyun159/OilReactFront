@@ -25,6 +25,7 @@ export default function LoadingButtonsTransition(props) {
           loadingPosition="end"
           variant="contained"
           color="primary"
+          disabled={props.disabled}
         >
           {props.child}
         </LoadingButton>
