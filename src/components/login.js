@@ -65,11 +65,7 @@ const Login = () => {
     <div className={styled.div}>
       <img src="/asset/BigLogo.png" alt="mainLogo" />
       <form onSubmit={submitHandler}>
-        <TextField
-          place="이메일을 입력하세요"
-          type="email"
-          inputRef={emailInputRef}
-        />
+        <TextField place="이메일을 입력하세요" type="email" inputRef={emailInputRef}/>
         <TextField place="⦁⦁⦁⦁⦁⦁⦁⦁" type="password" inputRef={passwordRef} />
         <Button type="submit" child="로그인" padding="10" />
         {isLoading && <LinearProgress sx={{ mb: 2 }} />}

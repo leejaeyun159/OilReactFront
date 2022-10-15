@@ -11,16 +11,28 @@ const ButtonInner = styled.button`
 `;
 
 const Button =(props)=>{
-    return (
-        <ButtonInner className={props.className}
+    return props.disabled ? (
+      <ButtonInner
+        className={props.className}
         type={props.type}
         padding_={props.padding}
         bgcolor={props.bgcolor}
         onClick={props.onClick}
-        >
-            {props.child}
-        </ButtonInner>
-    )
+        disabled
+      >
+        {props.child}
+      </ButtonInner>
+    ) : (
+      <ButtonInner
+        className={props.className}
+        type={props.type}
+        padding_={props.padding}
+        bgcolor={props.bgcolor}
+        onClick={props.onClick}
+      >
+        {props.child}
+      </ButtonInner>
+    );
 }
 
 export default Button;

@@ -4,6 +4,7 @@ import LoadingButtonsTransition from "./SendButton";
 import BasicModal from './BasicModal';
 import TemporaryDrawer from "./TemporaryDrawer";
 import SendButton from "./SendButton";
+import Accordion from "./Accodion";
 
 export {
   SelectAutoWidth,
@@ -11,5 +12,6 @@ export {
   LoadingButtonsTransition,
   BasicModal,
   TemporaryDrawer,
-  SendButton
+  SendButton,
+  Accordion
 };

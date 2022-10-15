@@ -4,8 +4,10 @@ const APIKEY = "AIzaSyCvS0xnX5DZ5q5YAvwO5J0kxnqGNRSJ8zk";
 
 const usePassWordFind = () =>{
     const [isResponse, setIsResponse] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const sendRequest = (requestConfig, mode) => {
+        setIsLoading(true);
       const sendBody = {
         email: requestConfig.email ? requestConfig.email : null,
         requestType: requestConfig.requestType ? requestConfig.requestType : null 
@@ -46,12 +48,15 @@ const usePassWordFind = () =>{
         .catch((err) => {
           alert(err);
           setIsResponse(err);
+        }).finally(()=>{
+            setIsLoading(false);
         });
     };
 
     return {
         sendRequest,
-        isResponse
+        isResponse,
+        isLoading
     }
 }
 export default usePassWordFind;

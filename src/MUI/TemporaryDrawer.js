@@ -13,6 +13,7 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import LastPageIcon from "@mui/icons-material/LastPage";
+import {Link} from 'react-router-dom'
 
 export default function TemporaryDrawer(props) {
   const [state, setState] = React.useState({ right: false });
@@ -35,6 +36,8 @@ export default function TemporaryDrawer(props) {
     <LockResetIcon/>,
 
   ];
+  const linkText = ["", "", "/faq", "/findPW"];
+  const linkUserText = ["", "/delAccount"];
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -61,14 +64,9 @@ export default function TemporaryDrawer(props) {
       </Box>
       <Divider />
       <List>
-        {[
-          "캘린더",
-          "통계",
-          "문의사항",
-          "비밀번호 변경",
-        ].map((text, index) => (
+        {["캘린더", "통계", "FAQ", "비밀번호 변경"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to={linkText[index]}>
               <ListItemIcon>
                 {iconList[index] ? iconList[index] : ""}
               </ListItemIcon>
@@ -79,14 +77,10 @@ export default function TemporaryDrawer(props) {
       </List>
       <Divider />
       <List>
-        {[          
-          "로그아웃",
-          "회원탈퇴",
-        ].map((text, index) => (
+        {["로그아웃", "회원탈퇴"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={text}
-              sx={{color:'red'}} />
+            <ListItemButton component={Link} to={linkUserText[index]}>
+              <ListItemText primary={text} sx={{ color: "red" }} />
             </ListItemButton>
           </ListItem>
         ))}

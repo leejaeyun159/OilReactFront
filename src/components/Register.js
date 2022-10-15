@@ -21,6 +21,7 @@ const Register =()=>{
   const [isEqual, setIsEqual] = useState(false)
   const [isValid, setIsValid] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
+  const lastButton = isEqual && isValid;
 
   const emailInputRef = useRef();
   const nickRef = useRef();
@@ -77,17 +78,13 @@ const Register =()=>{
    };
 
     return (
-      <div className={styled.formRegister} onSubmit={submitHandler}>
+      <div className={styled.formRegister}>
         <h2>회원가입</h2>
         <h3>아이디(이메일 인증)</h3>
         <p>이메일 형식으로 입력해주세요</p>
         <form>
             <TextField place="아이디" type="email" inputRef={emailInputRef} />
-            <Button type="submit" child="인증번호 전송" padding="5" />
-        </form>
-        <form>
-          <TextField place="인증번호" type="text" />
-          <Button type="submit" child="인증번호 확인" padding="5" />
+            <Button type="submit" child="유효이메일 확인" padding="5" />
         </form>
         
         <h3>닉네임</h3>
@@ -114,7 +111,8 @@ const Register =()=>{
         </span>
         <h3>개인정보 취급방침 동의</h3>
         <div id="privacy">{text}</div>
-        <Button type="submit" child="약관 동의 및 회원가입" padding="10" />
+        {lastButton&&<Button type="submit" child="약관 동의 및 회원가입" padding="10" onClick={submitHandler}/>}
+        {!lastButton&&<Button type="submit" child="약관 동의 및 테스트" padding="10" onClick={submitHandler} bgcolor="grey" disabled={true}/>}
         {isLoading && <LinearProgress sx={{ mb: 2 }} />}
       </div>
     );
