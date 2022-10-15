@@ -16,6 +16,7 @@ const Button =(props)=>{
         type={props.type}
         padding_={props.padding}
         bgcolor={props.bgcolor}
+        onClick={props.onClick}
         >
             {props.child}
         </ButtonInner>

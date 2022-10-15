@@ -34,7 +34,7 @@ const Img = styled.img`
   src: "${(props) => props.logo}";
 `;
 
-const Button = styled.button`
+const RBtn = styled.div`
   width: 40px;
   height: 40px;
   border: none;
@@ -64,12 +64,13 @@ const Nav = (props) => {
       <HeadText>{props.pageTitle}</HeadText>
       <RightChild>
         {!isLoggedIn ? (
-          <Button>
+          <RBtn>
             <TemporaryDrawer>
               <Img src="/asset/category.png" width="22px" height="22px" />
             </TemporaryDrawer>
-          </Button> /*카테고리 모달창 */
+          </RBtn>
         ) : (
+          /*카테고리 모달창 */
           <Link to="/login">
             <Img src="/asset/login.png" width="22px" height="22px" />
           </Link>

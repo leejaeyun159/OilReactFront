@@ -5,7 +5,7 @@ const Card = styled.div`
     width:100%;
     margin:0px auto ;
     min-width:280px;
-    max-width:${(props)=> props.mxWidth}px;
+    max-width:${(props)=> props.maxWidth}px;
     position:relative;
 `;
 export default Card;

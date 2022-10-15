@@ -1,4 +1,4 @@
-.div>form {
+.formRegister {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -9,26 +9,26 @@
     margin-top: 30px;
 }
 
-.div>form>h3 {
+.formRegister>h3 {
     padding:5px;
     margin:15px 0 0 0;
     color: var(--maincolor);
     background-color: var(--backBlue);
 }
 
-.div>form>p {
+.formRegister>p {
     color: grey;
     margin: 0;
     font-size: 15px;
     margin-top: 15px;
 }
 
-.div>form>span {
+.formRegister > form {
     display: flex;
     justify-content: space-around;
 }
 
-.div > form > div{
+.formRegister > div{
     padding:10px;
     margin: 20px 0;
     color:grey;
@@ -38,6 +38,8 @@
 }
 
 .pwSpan {
+    display: flex;
+    justify-content: space-around;
     background-color: var(--maincolor);
     color:white;
     font-size: 13px;

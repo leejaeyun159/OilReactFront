@@ -30,7 +30,7 @@ const DetailGraph = () => {
             우리는 남의 기쁨에서 우리 자신의 슬픔을 뽑아오고
             <br /> 남의 슬픔에서 기쁨을 얻어온다
           </p>
-          <Card mxWidth="600">
+          <Card maxWidth="600">
             <Highlight text="오늘따라 갑자기 니 생각이 나니까" />
             <ProgressBar
               color={"#AAC4FF"}
