@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from "@mui/material/styles";//mui 색깔 설정
 import { theme } from '../src/MUI/theme' //mui 색깔 바꾸기
+import { AuthContextProvider } from './store/oil-context';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>
+  <AuthContextProvider>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </AuthContextProvider>
 );
 
 reportWebVitals();

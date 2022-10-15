@@ -31,7 +31,9 @@ const TextField =(props)=>{
         fsize={props.fsize}
         placeholder={props.place}
         type={props.type}
-      ></Field>
+        required={props.required}
+        ref={props.inputRef}
+      />
     );
 }
 export default TextField; 

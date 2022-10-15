@@ -1,26 +1,34 @@
-.div>div {
-    margin-top: 50px;
+.div>form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px auto;
+    min-width: 280px;
+    max-width: 350px;
+    position: relative;
+    margin-top: 30px;
 }
 
-.div>div>h3 {
-    /* padding:5px; */
+.div>form>h3 {
+    padding:5px;
+    margin:15px 0 0 0;
     color: var(--maincolor);
-    border-bottom: 2px solid var(--backBlue);
+    background-color: var(--backBlue);
 }
 
-.div>div>p {
+.div>form>p {
     color: grey;
     margin: 0;
     font-size: 15px;
     margin-top: 15px;
 }
 
-.div>div>span {
+.div>form>span {
     display: flex;
     justify-content: space-around;
 }
 
-.div > div > div{
+.div > form > div{
     padding:10px;
     margin: 20px 0;
     color:grey;
@@ -29,10 +37,8 @@
     height: 200px;
 }
 
-.div > div > a {
-    text-align: center;
-}
-
-.div>div>a>input {
-    width: 100%;
+.pwSpan {
+    background-color: var(--maincolor);
+    color:white;
+    font-size: 13px;
 }

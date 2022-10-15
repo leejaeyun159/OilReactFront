@@ -15,16 +15,19 @@
   font-size: 8vw;
 }
 
-.div > img {
+.div>p {
+text-align: right;
+}
+
+.div > p > img {
   max-width: 70vw;
-  float:right;
+  
 }
 
 
 @media (width > 450px){
-  .div>img {
+  .div> p >img {
       max-width: 304.5px;
-      float:right;
     }
 }
 

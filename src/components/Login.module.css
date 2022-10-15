@@ -16,10 +16,20 @@
     
 }
 
-.div > div > div > a {
+.div > div > a {
     color: var(--maincolor);
     margin: 7px 0;
     font-weight: 300;
     font-size: 13px;
     text-decoration: none;
+}
+
+.div > form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px auto;
+    min-width: 280px;
+    max-width: 350px;
+    position: relative;
 }

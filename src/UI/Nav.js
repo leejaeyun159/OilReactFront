@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { TemporaryDrawer } from "../MUI";
+import OilContext from '../store/oil-context';
+import { useContext } from  'react';
 
 const OilNav = styled.div`
   padding: 20px 0;
@@ -43,10 +46,12 @@ const Button = styled.button`
 `;
 
 const Nav = (props) => {
+  const authCtx = useContext(OilContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   return (
     <OilNav>
       <LeftChild>
-        {props.Auth ? (
+        {!isLoggedIn ? (
           <Link to="/mainFeed">
             <Img src="/asset/oilLogo.png" width="40px" height="30px" />
           </Link>
@@ -56,13 +61,13 @@ const Nav = (props) => {
           </Link>
         )}
       </LeftChild>
-      <HeadText>{
-        props.pageTitle
-      }</HeadText>
+      <HeadText>{props.pageTitle}</HeadText>
       <RightChild>
-        {props.Auth ? (
+        {!isLoggedIn ? (
           <Button>
-            <Img src="/asset/category.png" width="22px" height="22px" />
+            <TemporaryDrawer>
+              <Img src="/asset/category.png" width="22px" height="22px" />
+            </TemporaryDrawer>
           </Button> /*카테고리 모달창 */
         ) : (
           <Link to="/login">
