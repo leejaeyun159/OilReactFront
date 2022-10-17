@@ -13,10 +13,14 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
+import { useContext } from "react";
+import OilContext from "../store/oil-context";
 
 export default function TemporaryDrawer(props) {
   const [state, setState] = React.useState({ right: false });
+  const AuthCtx = useContext(OilContext);
+  const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -36,8 +40,15 @@ export default function TemporaryDrawer(props) {
     <LockResetIcon/>,
 
   ];
-  const linkText = ["", "", "/faq", "/findPW"];
-  const linkUserText = ["", "/delAccount"];
+  const linkText = ["/Calendar", "", "/faq", "/authfindPW"];
+
+  const logoutHandler = (e) => {
+    e.preventDefault();
+    AuthCtx.logout();
+    navigate('/',{replace:true});
+    console.log(AuthCtx.setToken)
+  };
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -77,13 +88,16 @@ export default function TemporaryDrawer(props) {
       </List>
       <Divider />
       <List>
-        {["로그아웃", "회원탈퇴"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton component={Link} to={linkUserText[index]}>
-              <ListItemText primary={text} sx={{ color: "red" }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem key="로그아웃" disablePadding>
+          <ListItemButton onClick={logoutHandler}>
+            <ListItemText primary="로그아웃" sx={{ color: "red" }} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="회원탈퇴" disablePadding>
+          <ListItemButton component={Link} to="/delAccount">
+            <ListItemText primary="회원탈퇴" sx={{ color: "red" }} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );

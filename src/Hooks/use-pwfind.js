@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate} from "react-router-dom";
 
 const APIKEY = "AIzaSyCvS0xnX5DZ5q5YAvwO5J0kxnqGNRSJ8zk";
 
 const usePassWordFind = () =>{
     const [isResponse, setIsResponse] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const sendRequest = (requestConfig, mode) => {
         setIsLoading(true);
@@ -41,12 +43,12 @@ const usePassWordFind = () =>{
           }
         })
         .then((data) => {
-          alert("성공" + data);
-          console.log(data);
+          alert("해당 이메일로 인증 사이트가 발송되었습니다.(유효시간 5분)");
           setIsResponse(data);
+          navigate('/',{replace:true});
         })
         .catch((err) => {
-          alert(err);
+          alert("유효한 아이디를 입력해주세요(이메일 형식)");
           setIsResponse(err);
         }).finally(()=>{
             setIsLoading(false);

@@ -48,22 +48,23 @@ const RBtn = styled.div`
 const Nav = (props) => {
   const authCtx = useContext(OilContext);
   const isLoggedIn = authCtx.isLoggedIn;
+
   return (
     <OilNav>
       <LeftChild>
-        {!isLoggedIn ? (
+        {isLoggedIn ? (
           <Link to="/mainFeed">
             <Img src="/asset/oilLogo.png" width="40px" height="30px" />
           </Link>
         ) : (
-          <Link to="/">
+          <Link to="/login">
             <Img src="/asset/oilLogo.png" width="40px" height="30px" />
           </Link>
         )}
       </LeftChild>
       <HeadText>{props.pageTitle}</HeadText>
       <RightChild>
-        {!isLoggedIn ? (
+        {isLoggedIn ? (
           <RBtn>
             <TemporaryDrawer>
               <Img src="/asset/category.png" width="22px" height="22px" />

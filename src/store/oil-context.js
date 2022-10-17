@@ -12,16 +12,16 @@ export const AuthContextProvider = (props) =>{
 
     const userLoggedIn = !!token;
     
-    const loginHandler = () => { setToken(token) };
+    const loginHandler = (token) => { setToken(token) };
 
     const logoutHandler = () =>{ setToken(null) };
 
     const contextValue = {
-        token: token,
-        isLoggedIn: userLoggedIn,
-        login: loginHandler,
-        logout:logoutHandler
-    }
+      token: token,
+      isLoggedIn: userLoggedIn,
+      login: loginHandler,
+      logout: logoutHandler,
+    };
 
     return (<OilContext.Provider value={contextValue}>
         {props.children}

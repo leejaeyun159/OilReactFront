@@ -1,3 +1,38 @@
-.div{
-    
+.div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px auto;
+    min-width: 280px;
+    max-width: 350px;
+    position: relative;
+    margin-top: 30px;
+}
+
+.div >span {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.dateTitle {
+    text-align: center;
+    background-color:var(--maincolor);
+    color:white;
+    font-weight: 600;
+    padding:5px;
+    margin: 0;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.react-calendar {
+    background-color: #fff;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); 
+    color: #222;
+    border:0;
+}
+
+.react-calendar > button{
+    border-radius: 15px;
+    background-color: red;
 }

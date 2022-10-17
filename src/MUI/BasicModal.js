@@ -19,6 +19,9 @@ export default function BasicModal(props) {
         onClose={props.close}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        BackdropProps={{
+          timeout: 700,
+        }}
       >
         <Box sx={style}>{props.children}</Box>
       </Modal>
