@@ -50,7 +50,9 @@ const Login = () => {
       .then(toJson)
       .then((data) => {
         alert('로그인 되었습니다')
-        authCtx.login(data.idToken);
+        const expiractionTime = new Date((new Date().getTime() + (+data.expiresIn * 1000)));
+        //expire 시간을 초단위로 바꾸고 현재시간과 더해서 계산하기 쉽게 함
+        authCtx.login(data.idToken, expiractionTime.toISOString());
         console.log(authCtx.token)
       })
       .catch((err) => {
