@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;300;500;700&family=Noto+Serif+KR:wght@200;400;500;700&family=Oswald:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;300;500;700&family=Inconsolata:wght@200;300&family=Noto+Serif+KR:wght@200;400;500;700&family=Orbitron:wght@400;500&family=Oswald:wght@700&family=Press+Start+2P&family=Righteous&display=swap');
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 *{
     font-family: 'Pretendard';
     /* font-family: 'Gothic A1', sans-serif; */
     /* font-family: 'Noto Serif KR', serif;
-    font-family: 'Oswald', sans-serif; */
+    font-family: 'Oswald', sans-serif; 
+    font-family: 'Inconsolata', monospace;*/
+    /*font-family: 'Orbitron', sans-serif;*/
+    
 }
+
 /* 
 Gothic A1
 Thin 100
@@ -22,18 +26,24 @@ Bold 700 */
 /* Oswald
 Bold 700 */
 
+/*'Inconsolata',
+200
+300*/
+
 #root {
     --maincolor: #002560;
     --semiSilver: #DBDBDB;
     --backBlue: #e6eefb;
     
+    
 }
 
-#contentPage {
+.contentPage {
     width:100%;
     min-height: 100vh;
     max-width: 700px;
     margin: 0 auto;
+    position: relative;
 }
 html,body{
     margin:0;
@@ -42,4 +52,32 @@ html,body{
 body {
     padding-right: 0 !important;
     /* modal 창 띄웠을 때 오류 방지 */
+}
+
+.page{
+    position: absolute;
+    left: 15px;
+    right: 15px;
+}
+
+.page-enter {
+    opacity: 0;
+    transform: scale(0.1);
+}
+
+.page-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.page-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.page-exit-active {
+    opacity: 0;
+    transform: scale(0.1);
+    transition: opacity 500ms, transform 500ms;
 }

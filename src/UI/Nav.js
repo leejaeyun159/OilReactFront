@@ -7,25 +7,23 @@ import { useContext } from  'react';
 const OilNav = styled.div`
   padding: 20px 0;
   display: flex;
+  align-contents: center;
   background: var(--maincolor);
   box-shadow: 0 0 7px 0 #000000;
 `;
-const LeftChild = styled.div`
-    justify-content:start;
-    margin:auto;
+  const LeftChild = styled.div`
+  padding:5px 0;
+  margin:auto;
 }
 `;
 
 const HeadText = styled.div`
-    font-size: 15px;
-    font-weight:900;
-    color:white;
-    margin: auto;
+  margin: auto;
 `;
 
 const RightChild = styled.div`
-  justify-content: end;
-  margin: auto;
+  padding: 9px 0;
+  margin:0 auto;
 `;
 
 const Img = styled.img`
@@ -34,16 +32,6 @@ const Img = styled.img`
   src: "${(props) => props.logo}";
 `;
 
-const RBtn = styled.div`
-  width: 40px;
-  height: 40px;
-  border: none;
-  cursor: pointer;
-  background: url("${(props) => props.logo}") no-repeat;
-  background-position: center;
-  background-size: ${(props) => props.size};
-  top: 50%;
-`;
 
 const Nav = (props) => {
   const authCtx = useContext(OilContext);
@@ -62,14 +50,12 @@ const Nav = (props) => {
           </Link>
         )}
       </LeftChild>
-      <HeadText>{props.pageTitle}</HeadText>
+      <HeadText>{props.navClock}</HeadText>
       <RightChild>
         {isLoggedIn ? (
-          <RBtn>
             <TemporaryDrawer>
               <Img src="/asset/category.png" width="22px" height="22px" />
             </TemporaryDrawer>
-          </RBtn>
         ) : (
           /*카테고리 모달창 */
           <Link to="/login">

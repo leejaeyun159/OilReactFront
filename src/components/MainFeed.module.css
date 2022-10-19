@@ -1,7 +1,18 @@
 .div{
+    width: 100%;
+    margin-top: 30px;
+    padding: 20px 0;
 }
+
+.div > p {
+    color:var(--maincolor);
+    text-align: right;
+    margin: 0 5px 0 0;
+    font-size: 12px;
+}
+
 .btn{
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
+    position: fixed; 
+    bottom: 2%;
+    right: 2%;
 }

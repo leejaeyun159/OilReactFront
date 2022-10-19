@@ -65,13 +65,13 @@ return (
     <Card>
       <Card>
         <div>
-          <SelectAutoWidth
+          {/* <SelectAutoWidth
             label="날짜"
             list={date}
             onBlur={dateBlurHandler}
             onChange={dateChangeHandler}
             pick={datePick}
-          />
+          /> */}
           <SelectAutoWidth
             label="날씨"
             list={weather}

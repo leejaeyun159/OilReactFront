@@ -11,16 +11,23 @@ const DiaryConent = {
   mmdd: "0519",
 }; //목업
 
-const MainFeed = ()=>{
+const MainFeed = (props)=>{
   const [modalPaging, setModalPage] = useState(false) //모달창 상태
-  const modalPageOpenHandler =()=> setModalPage(true); //모달창 키기
-  const modalPageCloseHandler =()=> setModalPage(false); //모달창 끄기
+  const modalPageOpenHandler =()=> {
+    setModalPage(true);
+    props.fn();
+  } //모달창 키기
+  const modalPageCloseHandler =()=> {
+    setModalPage(false);
+    props.fn();
+  } //모달창 끄기
 
     return (
       <div className={styled.div}>
         <BasicModal open={modalPaging} close={modalPageCloseHandler}>
           <CreatePage />
         </BasicModal>
+        <p>* 일기는 익일 새벽 4시를 기준으로 수정이 불가합니다</p>
         {/* 지울예정 */}
         <DiaryPage //목업
           main={DiaryConent["main"]}

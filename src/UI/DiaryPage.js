@@ -13,7 +13,7 @@ const ConditionPreview = styled.div`
 `;
 
 const Background = styled.div`
-  box-shadow: 0px 2px 15px #bbbbbb;
+  box-shadow: 0px 2px 9px #bbbbbb;
   border-radius: 0 0 15px 0;
   height: 80px;
   margin: 10px auto 0 auto;
