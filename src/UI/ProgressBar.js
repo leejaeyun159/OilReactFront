@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 const ProgressBar = styled.div`
   background-color: ${(props) => props.color};
-  width: ${(props) => props.persent/(1.7)}vw;
+  width: ${(props) => props.persent}%;
   height: 15px;
-  margin: 3px 5%;
+  margin-left: 0;
   animation: progressbar 2s ease-out;
   white-space: nowrap;
   font-weight: 700;

@@ -3,13 +3,17 @@ import styled from 'styled-components'
 const ConditionPreview = styled.div`
   border: solid white 2px;
   border-radius: 15px;
-  background-color: ${(props) => props.condition};
+  background-color: rgb(
+    ${(props) => props.preview["R"]},
+    ${(props) => props.preview["G"]},
+    ${(props) => props.preview["B"]}
+  );
   width: 8px;
   height: 8px;
   position: absolute;
   box-shadow: 0px 3px 7px #bbbbbb;
-  right:8px;
-  bottom:8px;
+  right: 8px;
+  bottom: 8px;
 `;
 
 const Background = styled.div`
@@ -26,7 +30,7 @@ const Background = styled.div`
     position: absolute;
     left: 20px;
     top: 20px;
-    color:var(--maincolor);
+    color: var(--maincolor);
     font-weight: 700;
     z-index: 2;
   }
@@ -49,6 +53,36 @@ const Background = styled.div`
     letter-spacing: -5px;
     z-index: 1;
   }
+
+  &:hover,
+  &:active,
+  &:focus {
+    animation: focusOn 0.4s forwards;
+    cursor: pointer;
+  }
+  &:link,
+  &:visited {
+    animation: focusOut 0.2s forwards;
+  }
+
+  @keyframes focusOn {
+    from {
+    }
+    to {
+      transform: scale(1.03);
+      box-shadow: 0px 2px 9px grey;
+      background-color: #f7faff;
+    }
+  }
+
+  @keyframes focusout {
+    from {
+      transform: scale(1);
+      box-shadow: 0px 2px 9px #bbbbbb;
+    }
+    to {
+    }
+  }
 `;
 
 const DiaryPage =(props)=>{
@@ -57,7 +91,7 @@ const DiaryPage =(props)=>{
         <div className="mainTitle">{props.main}</div>
         <div className="weatherDay">{props.days} | {props.weather}</div>
         <div className="MMDD">{props.mmdd}</div>
-        <ConditionPreview condition="var(--maincolor)" />
+        <ConditionPreview preview={props.preview} />
       </Background>
     );
 }

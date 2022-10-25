@@ -1,7 +1,22 @@
 .div {
     text-align: center;
 }
+.Link{
+    color:red;
+    font-weight: 300;
+    text-decoration: none;
+}
 
+.div > p {
+    color: var(--maincolor);
+    text-align: right;
+    margin: 5px 5px;
+    font-size: 12px;
+}
+
+.div > div > h3{
+    margin: 2px;
+}
 
 .div > div > p{
     max-width: 270px;
@@ -11,10 +26,18 @@
 .span {
     display: flex;
     align-items: center;
-    height: 40px;
+    height: 38px;
+    justify-content: space-between;
 }
 
 .span > h4 {
     min-width: 55px;
     font-size: 14px;
+}
+
+.span > div{
+    background-color: var(--backBlue);
+    width: 75%;
+    border-radius: 8px;
+
 }

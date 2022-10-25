@@ -15,19 +15,16 @@ export default function SimpleAccordion(props) {
           id="panel1a-header"
           sx={{ margin: 1 }}
         >
-          <Typography
-            color="primary"
-            sx={{ fontSize: 15,fontWeight: 300 }}>
-            Q. {props.title}
+          <Typography color="primary" sx={{ fontSize: 15, fontWeight: 300 }}>
+            {props.children}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography
-            sx={{ fontSize: 13, fontWeight: 500 }}
-          >
-              {`⤷ `}{props.context}
+          <Typography sx={{ fontSize: 14, fontWeight: 500 }}>
+            {props.context}
           </Typography>
         </AccordionDetails>
+        {props.btn}
       </Accordion>
     </div>
   );
