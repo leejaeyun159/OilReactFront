@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useContext,useState } from 'react';
-import { Nav, Footer, Clock } from './UI';
+import React, { useContext} from 'react';
+import { Nav, Footer } from './UI';
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import Calendar from './components/Calendar';
 import DetailGraph from './components/DetailGraph';
@@ -21,14 +21,9 @@ const App =()=>{
   const isLoggedIn = authCtx.isLoggedIn
   const location = useLocation();
   
-  const [turnOn, setTurnOn] = useState(false);
-  const clockLight = () =>{
-    setTurnOn(!turnOn);
-    console.log(turnOn)
-  }
   return (
     <>
-    <Nav navClock={<Clock lightOn={turnOn} />}/>
+    <Nav />
             <TransitionGroup component="div" className="contentPage">
               <CSSTransition key ={location.pathname} timeout={500} classNames="page" unmountOnExit>
                 <Routes>
@@ -42,7 +37,7 @@ const App =()=>{
                   {isLoggedIn && <Route path="/changePw" element={<FindPassword />} />}
                   {isLoggedIn && <Route path="/calendar" element={<Calendar />} />}
                   {isLoggedIn && <Route path="/diarydetail" element={<DetailGraph />} />}
-                  {isLoggedIn && <Route path="/mainFeed" element={<MainFeed fn={clockLight}/>} />}
+                  {isLoggedIn && <Route path="/mainFeed" element={<MainFeed/>} />}
                   {isLoggedIn && <Route path="/search" element={<SearchingPage />} />}
                   {isLoggedIn && <Route path="/faq" element={<FAQ />} />}
                   {isLoggedIn && <Route path="/delAccount" element={<DeleteAccount />} />}

@@ -1,38 +1,60 @@
 import styled from './Register.module.css';
 import LinearProgress from "@mui/material/LinearProgress";
 import { useRef, useState } from 'react';
-import { TextField, Button} from '../UI';
+import { TextField, Button } from '../UI';
 import {text} from '../API/privacy'
+import usePost from "../Hooks/use-post";
+import usePut from "../Hooks/use-put";
+import { useNavigate } from 'react-router-dom';
 
-const PWVAILD = /(?=.*\d)(?=.*?[#?!@$%^&*-])(?=.*[a-zA-ZS]).{6,}/; //비밀번호 유효성 검사
-
-const toJson = (response) => {
-  if (response.ok) {
-    return response.json();
-  } else {
-    return response.json().then((data) => {
-      let errorMessage = "잘못된 접근입니다.";
-      throw new Error(errorMessage);
-    });
-  }
-};
+const VALIDCHECK = {
+  EMAILVALID: /\w+@\w+\.\w+(\.\w+)?/,
+  PWVAILD: /(?=.*\d)(?=.*?[#?!@$%^&*-])(?=.*[a-zA-ZS]).{6,}/,
+}; //정규식 모음
 
 const Register =()=>{
+  const [isEmfomat, setIsEmformat] = useState(false);
   const [isEqual, setIsEqual] = useState(false)
   const [isValid, setIsValid] = useState(false)
-  const [isLoading, setIsLoading] = useState(false);
-  const lastButton = isEqual && isValid;
-
+  
   const emailInputRef = useRef();
   const nickRef = useRef();
+  const CodeInputRef = useRef();
   const passwordInputRef = useRef();
   const passwordInputConfirmRef = useRef();
+
+  const navigate = useNavigate();
   
+  const lastButton = isEqual && isValid;
+
+  const {
+    sendRequest: emailreqBody,
+    isResponse: emailRes //인증코드창 활성화 
+  } = usePost(); //이메일 전송 hook(POST)
+
+  const {
+    sendRequest: registerBody,
+    isResponse: registerRes,
+    isLoading
+  } = usePost(); //회원가입 전송 hook(POST)
+  
+  const {
+    sendRequest: authCodeBody,
+    isResponse: authcoderes
+  } = usePut(); //수정예정
+
+  const EmailFormatValid =()=>{
+    if(VALIDCHECK.EMAILVALID.test(emailInputRef.current.value)){
+      setIsEmformat(true);
+    }else setIsEmformat(false);
+  }//이메일 번호 유효성 검사
+
   const passwordFormatValid =()=>{
-    if(PWVAILD.test(passwordInputRef.current.value))
-      { setIsValid(true); }
-    else setIsValid(false);
+    if (VALIDCHECK.PWVAILD.test(passwordInputRef.current.value)) {
+      setIsValid(true);
+    } else setIsValid(false);
   } //비밀번호 유효성 검사
+
   const passwordEqual = () =>{
     if(passwordInputRef.current.value !== ""
       &&(passwordInputRef.current.value === passwordInputConfirmRef.current.value))
@@ -40,41 +62,40 @@ const Register =()=>{
     else setIsEqual(false);
   } //비밀번호 확인 검사
 
+  const EmailSubmitHandler = e =>{
+    e.preventDefault();
+    const enteredEmail = emailInputRef.current.value;
+    const requestBody = {
+      email: enteredEmail,
+      url: "http://18.181.249.83:8080/api/auth/email-key"
+    };
+    emailreqBody(requestBody,'emailSend'); //이메일 전송
+  }
+
+  const AuthCodeConfirmHandler = e =>{
+    e.preventDefault();
+    const enteredAuthCode = CodeInputRef.current.value;
+    const requestBody = {
+      key: enteredAuthCode,
+      url: "http://18.181.249.83:8080/api/auth/check/email-key"
+    };
+    authCodeBody(requestBody,"authCodeConSend"); //회원가입 전송
+  }
+
   const submitHandler = e => {
      e.preventDefault();
       const enteredEmail = emailInputRef.current.value;
       const enteredPassword = passwordInputRef.current.value;
       const enteredNick = nickRef.current.value;
-     
-     setIsLoading(true);
-     fetch(
-       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvS0xnX5DZ5q5YAvwO5J0kxnqGNRSJ8zk",
-       {
-         method: "POST",
-         body: JSON.stringify({
-           email: enteredEmail,
-           password: enteredPassword,
-           returnSecureToken: true,
-           nickName: enteredNick,
-         }),
-         headers: {
-           "Content-Type": "application/json",
-         },
-       }
-     ).then((response) => {
-         setIsLoading(true);
-         return response;
-       })
-       .then(toJson)
-       .then((data) => {
-         alert('환영합니다!');
-       })
-       .catch((err) => {
-         alert(err.message);
-       })
-       .finally(() => {
-         setIsLoading(false);
-       });
+     const requestBody = {
+       email: enteredEmail,
+       password: enteredPassword,
+       nickname: enteredNick,
+       url: "http://18.181.249.83:8080/api/auth/register",
+     };
+     registerBody(requestBody, 'register');
+     console.log("결과" + registerRes.success);
+     navigate('/login',{replace:true});
    };
 
     return (
@@ -83,10 +104,46 @@ const Register =()=>{
         <h3>아이디(이메일 인증)</h3>
         <p>이메일 형식으로 입력해주세요</p>
         <form>
-            <TextField place="아이디" type="email" inputRef={emailInputRef} />
-            <Button type="submit" child="유효이메일 확인" padding="5" />
+          <TextField
+            place="아이디"
+            type="email"
+            inputRef={emailInputRef}
+            onChange={EmailFormatValid}
+          />
+          {isEmfomat && (
+            <Button
+              type="submit"
+              child="인증번호전송"
+              padding="5"
+              onClick={EmailSubmitHandler}
+            />
+          )}
+          {!isEmfomat && (
+            <Button
+              type="submit"
+              child="인증번호전송"
+              padding="5"
+              bgcolor="grey"
+              disabled={true}
+            />
+          )}
         </form>
-        
+        {emailRes && (
+          <form>
+            <TextField
+              place="인증번호 6자리"
+              type="text"
+              inputRef={CodeInputRef}
+            />
+            <Button
+              type="submit"
+              child="인증번호확인"
+              padding="5"
+              onClick={AuthCodeConfirmHandler}
+            />
+          </form>
+        )}
+
         <h3>닉네임</h3>
         <TextField place="닉네임" type="text" inputRef={nickRef} />
         <h3>비밀번호</h3>
@@ -111,8 +168,24 @@ const Register =()=>{
         </span>
         <h3>개인정보 취급방침 동의</h3>
         <div id="privacy">{text}</div>
-        {lastButton&&<Button type="submit" child="약관 동의 및 회원가입" padding="10" onClick={submitHandler}/>}
-        {!lastButton&&<Button type="submit" child="약관 동의 및 테스트" padding="10" onClick={submitHandler} bgcolor="grey" disabled={true}/>}
+        {lastButton && (
+          <Button
+            type="submit"
+            child="약관 동의 및 회원가입"
+            padding="10"
+            onClick={submitHandler}
+          />
+        )}
+        {!lastButton && (
+          <Button
+            type="submit"
+            child="약관 동의 및 테스트"
+            padding="10"
+            onClick={submitHandler}
+            bgcolor="grey"
+            disabled={true}
+          />
+        )}
         {isLoading && <LinearProgress sx={{ mb: 2 }} />}
       </div>
     );

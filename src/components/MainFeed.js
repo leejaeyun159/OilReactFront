@@ -15,11 +15,9 @@ const MainFeed = (props)=>{
   const [modalPaging, setModalPage] = useState(false) //모달창 상태
   const modalPageOpenHandler =()=> {
     setModalPage(true);
-    props.fn();
   } //모달창 키기
   const modalPageCloseHandler =()=> {
     setModalPage(false);
-    props.fn();
   } //모달창 끄기
 
     return (

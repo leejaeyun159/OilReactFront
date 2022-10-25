@@ -8,22 +8,26 @@ const usePassWordFind = () =>{
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const sendRequest = (requestConfig, mode) => {
+    const sendRequest = (headers,requestConfig, mode) => {
         setIsLoading(true);
-      const sendBody = {
-        email: requestConfig.email ? requestConfig.email : null,
-        requestType: requestConfig.requestType ? requestConfig.requestType : null 
-      };
-      const confirmBody = {
-        oobCode: requestConfig.oobCode?requestConfig.oobCode: null,
-        newPassword: requestConfig.newPassword?requestConfig.newPassword: null
-      };
 
-      const bodyFormat = mode === "send"
-            ? JSON.stringify(sendBody)
-            : (mode === "change"
-            ? JSON.stringify(confirmBody)
-            : null);
+        // const conifirmHeader ={
+        // }
+
+        const sendBody = {
+          email: requestConfig.email ? requestConfig.email : null,
+          requestType: requestConfig.requestType ? requestConfig.requestType : null 
+        };
+        const confirmBody = {
+          oobCode: requestConfig.oobCode?requestConfig.oobCode: null,
+          newPassword: requestConfig.newPassword?requestConfig.newPassword: null
+        };
+
+    const bodyFormat = mode === "send"
+          ? JSON.stringify(sendBody)
+          : (mode === "change"
+          ? JSON.stringify(confirmBody)
+          : null);
 
       fetch(requestConfig.url + APIKEY, {
         method: "POST",

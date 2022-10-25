@@ -50,7 +50,7 @@ const Nav = (props) => {
           </Link>
         )}
       </LeftChild>
-      <HeadText>{props.navClock}</HeadText>
+      <HeadText></HeadText>
       <RightChild>
         {isLoggedIn ? (
             <TemporaryDrawer>

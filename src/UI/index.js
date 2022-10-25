@@ -8,7 +8,7 @@ import TextField from "./TextField";
 import Button from "./Button";
 import Footer from './Footer'
 import DiaryTextField from "./DiaryTextField";
-import Clock from "./Clock";
+
 
 export {
   ProgressBar,
@@ -20,6 +20,5 @@ export {
   TextField,
   Button,
   Footer,
-  DiaryTextField,
-  Clock
+  DiaryTextField
 };

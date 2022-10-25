@@ -1,3 +1,20 @@
 .div {
     text-align: center;
 }
+
+
+.div > div > p{
+    max-width: 270px;
+    margin: 0 auto;
+}
+
+.span {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.span > h4 {
+    min-width: 55px;
+    font-size: 14px;
+}
