@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import { Accordion } from "../MUI";
 
 const DiaryCotent = {
-  main: "몰랐던 좋은 포맨 노래를 발견했다",
+  title: "몰랐던 좋은 포맨 노래를 발견했다",
   days: "20220519 AM",
   weather: "Cloudy Weather",
   mmdd: "0519",
@@ -29,7 +29,7 @@ const DetailGraph = () => {
       <div className={styled.div}>
         <div className="ConditionBox">
           <DiaryPage
-            main={DiaryCotent["main"]}
+            title={DiaryCotent["title"]}
             days={DiaryCotent["days"]}
             weather={DiaryCotent["weather"]}
             mmdd={DiaryCotent["mmdd"]}
@@ -73,7 +73,7 @@ const DetailGraph = () => {
               <h4>{DiaryCotent.CoditionPer["B"].toFixed(1)}%</h4>
             </span>
             <Accordion
-              children={<Highlight text={DiaryCotent.highlight} />}
+              children={<Highlight text={`${DiaryCotent.highlight}`} />}
               context={context}
             />
           </Card>

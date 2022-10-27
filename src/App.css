@@ -81,3 +81,9 @@ body {
     transform: scale(0.1);
     transition: opacity 500ms, transform 500ms;
 }
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+}
+

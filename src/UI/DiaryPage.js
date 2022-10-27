@@ -41,6 +41,7 @@ const Background = styled.div`
     font-size: 14px;
     font-weight: 400;
     z-index: 2;
+    color:black;
   }
   & > .MMDD {
     position: absolute;
@@ -51,7 +52,7 @@ const Background = styled.div`
     font-family: "Oswald", sans-serif;
     color: #baceef;
     letter-spacing: -5px;
-    z-index: 1;
+    z-index: 0;
   }
 
   &:hover,
@@ -87,12 +88,14 @@ const Background = styled.div`
 
 const DiaryPage =(props)=>{
     return (
-      <Background>
-        <div className="mainTitle">{props.main}</div>
-        <div className="weatherDay">{props.days} | {props.weather}</div>
-        <div className="MMDD">{props.mmdd}</div>
-        <ConditionPreview preview={props.preview} />
-      </Background>
+        <Background>
+          <div className="mainTitle">{props.title}</div>
+          <div className="weatherDay">
+            {props.days} | {props.weather}
+          </div>
+          <div className="MMDD">{props.mmdd}</div>
+          <ConditionPreview preview={props.preview} />
+        </Background>
     );
 }
 export default DiaryPage;

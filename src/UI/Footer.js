@@ -16,8 +16,8 @@ const DevInfo = styled.footer`
 const Footer =()=>{
     return (
       <DevInfo>
-        <p> [Front Dev] lee, kwon [Back Dev] lee, yoon</p>
-        <p>📧 nowwyun@gmail.com</p>
+        <p> [Front Dev] lee, kwon [Back Dev] yoon, lee </p>
+        <p>📧 nowwyun@inu.ac.kr</p>
         <strong>Copyright© INU ICT senier project</strong>
       </DevInfo>
     );

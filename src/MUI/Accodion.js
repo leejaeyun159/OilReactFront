@@ -20,11 +20,18 @@ export default function SimpleAccordion(props) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography sx={{ fontSize: 14, fontWeight: 500 }}>
+          <Typography
+            sx={{
+              fontSize: 15,
+              fontWeight: 600,
+              p: 2,
+              lineHeight: 2,
+              textAlign: "left",
+            }}
+          >
             {props.context}
           </Typography>
         </AccordionDetails>
-        {props.btn}
       </Accordion>
     </div>
   );

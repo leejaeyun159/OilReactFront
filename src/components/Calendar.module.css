@@ -26,13 +26,7 @@
 }
 
 .react-calendar {
-    background-color: #fff;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); 
-    color: #222;
     border:0;
 }
 
-.react-calendar > button{
-    border-radius: 15px;
-    background-color: red;
-}
