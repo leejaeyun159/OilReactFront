@@ -1,19 +1,19 @@
 .negativeDay {
-    background: rgb(255, 200, 198);
+    background: #DB9791;
     border-radius: 18px;
     font-weight: 800;
     color:white;
 }
 
 .defaultDay {
-    background: rgb(219, 219, 219);
+    background: #CADB69;
     border-radius: 18px;
     font-weight: 800;
     color: white;
 }
 
 .positiveDay {
-    background: rgb(199, 215, 255);
+    background: #80ABDB;
     border-radius: 18px;
     font-weight: 800;
     color: white;

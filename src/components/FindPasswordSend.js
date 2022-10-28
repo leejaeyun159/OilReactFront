@@ -29,14 +29,17 @@ const FindPasswordSend =()=>{
 
     return (
       <form className={styled.FindPWBox} onSubmit={submitEmailHandler}>
-        <h2>비밀번호 찾기/변경</h2>
+        <span>
+          <h2>비밀번호 찾기/변경</h2>
+          <h4>인증메일 전송</h4>
+        </span>
         <h3>이메일 인증</h3>
         <TextField
           place="이메일을 입력하세요"
           type="email"
           inputRef={emailInputRef}
         />
-          <p>*유효한 이메일로 작성해주세요</p>
+        <p>*유효한 이메일로 작성해주세요</p>
         <Button type="submit" child="인증메일 발송" padding="5" />
         {isLoading && <LinearProgress sx={{ mb: 2 }} />}
       </form>

@@ -39,13 +39,16 @@ const FAQ = () => {
 
   return (
     <div>
-        <div className={styled.TitleBox}>
-            <h2>FAQ</h2>
-            <p>더 궁금한 점이 있다면? Oil팀에 문의해주세요 noww_yun@gmail.com</p>
-        </div>
-        <div className={styled.FagBox}>
-            <div className={styled.container}>{faqList}</div>
-        </div>
+      <div className={styled.TitleBox}>
+        <span>
+          <h2>FAQ</h2>
+          <h4>자주 묻는 질문</h4>
+        </span>
+        <p>더 궁금한 점이 있다면? Oil팀에 문의해주세요 noww_yun@gmail.com</p>
+      </div>
+      <div className={styled.FagBox}>
+        <div className={styled.container}>{faqList}</div>
+      </div>
     </div>
   );
 };

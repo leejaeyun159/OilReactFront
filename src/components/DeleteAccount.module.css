@@ -19,9 +19,18 @@
 
 .DelBox>span {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-start;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.DelBox>span>h4 {
+    font-weight: 400;
+    font-size: 14px;
+    color: gray;
 }
 
 .DelBox > span > button{
     width: 40%;
 }
+

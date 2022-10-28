@@ -16,6 +16,7 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import {Link,useNavigate} from 'react-router-dom'
 import { useContext } from "react";
 import OilContext from "../store/oil-context";
+import Swal from "sweetalert2";
 
 export default function TemporaryDrawer(props) {
   const [state, setState] = React.useState({ right: false });
@@ -40,13 +41,32 @@ export default function TemporaryDrawer(props) {
     <LockResetIcon/>,
 
   ];
-  const linkText = ["/Calendar", "", "/faq", "/authfindPW"];
+  const linkText = ["/calendar", "/statistics", "/faq", "/authfindPW"];
 
   const logoutHandler = (e) => {
     e.preventDefault();
-    AuthCtx.logout();
     navigate('/',{replace:true});
-    console.log(AuthCtx.setToken)
+    Swal.fire({
+      title: "로그아웃",
+      text: "로그아웃하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#002560",
+      confirmButtonText: "로그아웃",
+      cancelButtonText: "남아있을게요",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "로그아웃",
+          text: "다음에 또 만나요",
+          icon: "success",
+          confirmButtonColor: "#002560",
+          confirmButtonText: "다음에 또 올게요",
+        });
+        AuthCtx.logout();
+      }
+    });
   };
 
   const list = (anchor) => (

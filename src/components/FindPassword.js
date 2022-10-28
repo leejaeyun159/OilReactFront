@@ -49,7 +49,10 @@ const FindPassword =()=>{
 
     return (
       <div className={styled.FindPWBox}>
-        <h2>비밀번호 찾기/변경</h2>
+        <span>
+          <h2>비밀번호 찾기/변경</h2>
+          <h4>비밀번호 초기화</h4>
+        </span>
         <h3>새로운 비밀번호 설정</h3>
         <TextField
           place="새로운 비밀번호"
@@ -67,8 +70,23 @@ const FindPassword =()=>{
           <p>비밀번호 유효 {isValid ? "✅" : "⬜"}</p>
           <p>비밀번호 일치{isEqual ? "✅" : "⬜"}</p>
         </span>
-        {lastButton&&<Button type="submit" child="비밀번호 변경" padding="10" onClick={submitHandler}/>}
-        {!lastButton&&<Button type="submit" child="비밀번호 변경" padding="10" bgcolor="grey" disabled={true}/>}
+        {lastButton && (
+          <Button
+            type="submit"
+            child="비밀번호 변경"
+            padding="10"
+            onClick={submitHandler}
+          />
+        )}
+        {!lastButton && (
+          <Button
+            type="submit"
+            child="비밀번호 변경"
+            padding="10"
+            bgcolor="grey"
+            disabled={true}
+          />
+        )}
         {isLoading && <LinearProgress sx={{ mb: 2 }} />}
       </div>
     );

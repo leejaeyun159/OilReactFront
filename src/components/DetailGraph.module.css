@@ -41,3 +41,16 @@
     border-radius: 8px;
 
 }
+
+.contentTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+}
+
+.contentTitle > button {
+    background-color: transparent;
+    padding:0;
+    border: none;
+}

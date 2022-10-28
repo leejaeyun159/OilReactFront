@@ -30,7 +30,7 @@ const OilCalendar = () => {
     <div className={styled.div}>
       <span>
         <h2>캘린더</h2>
-        <h4>한 달의 감정을 총 정리합니다</h4>
+        <h4>한 달의 감정을 한 눈에 보기</h4>
       </span>
       <Calendar
         className={styled["react-calendar"]}

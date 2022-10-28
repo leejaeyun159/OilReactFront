@@ -6,7 +6,7 @@ import TemporaryDrawer from "./TemporaryDrawer";
 import SendButton from "./SendButton";
 import Accordion from "./Accodion";
 import Reloading from "./Reloading";
-import LoadingSkeleton from './LoadingSkeleton'
+import LoadingSkeleton from './LoadingSkeleton';
 
 export {
   SelectAutoWidth,

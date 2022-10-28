@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import qs from 'qs';
 import OilContext from '../store/oil-context';
+import Swal from 'sweetalert2';
 
 const usePost = () =>{
     const [isResponse, setIsResponse] = useState(null);
@@ -59,15 +60,21 @@ const usePost = () =>{
           .then((res) => res.json())
           .then((res) => {
             setIsResponse(res);
-            alert(res.message);
+            Swal.fire({
+              title: res.success ? "환영합니다" : "에러!",
+              text: res.success ? "오늘의 감정을 남겨보세요" : res.message,
+              icon: res.success ? "success" : "error",
+              confirmButtonColor: "#002560",
+              confirmButtonText: "확인",
+            });
             if(mode==='login'){
+              console.log(res)
               const expiractionTime = new Date(new Date().getTime() + 10800000);
               authCtx.login(res.data, expiractionTime.toISOString());
             }
           })
           .catch((err) => {
             console.log(err);
-            alert(err.message);
           })
           .finally(()=>setIsLoading(false))
           

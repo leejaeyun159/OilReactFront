@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const Text = styled.div`
+const Text = styled.span`
   background-color: var(--maincolor);
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 14px;
   color: white;
   padding: 5px 20px;
   border-radius: 8px;

@@ -9,13 +9,17 @@ const Wrap = styled.div`
   background: rgb(255, 255, 255);
   background: linear-gradient(
     180deg,
-    rgb(234, 234, 234) 27%, 
-    rgb(${(props) => props.color["R"]}, ${(props) => props.color["G"]},${(props) => props.color["B"]}) 81%
+    rgb(249, 249, 249) 10%,
+    rgb(
+        ${(props) => (props.color["R"] / 100) * 255},
+        ${(props) => (props.color["G"] / 100) * 255},
+        ${(props) => (props.color["B"] / 100) * 255}
+      )
+      50%
   );
   box-shadow: 0px 13px 11px #bbbbbb;
   transform: translate3d(0, 0, 0);
   margin: 20px auto;
-
 `;
 const WaveCompo = styled.div`
   width: 430px;

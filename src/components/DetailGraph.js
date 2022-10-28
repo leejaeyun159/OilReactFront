@@ -1,83 +1,144 @@
 import styled from "./DetailGraph.module.css";
-import {ProgressBar, Card, Wave, DiaryPage, Highlight} from "../UI/";
-import {Link} from 'react-router-dom';
+import { useCallback, useEffect, useState } from "react";
+import { ProgressBar, Card, Wave, DiaryPage, Highlight } from "../UI/";
+import { Link, useSearchParams } from 'react-router-dom';
 import { Accordion } from "../MUI";
+import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
+import CreateIcon from "@mui/icons-material/Create";
+import moment from "moment/moment";
 
-const DiaryCotent = {
-  title: "몰랐던 좋은 포맨 노래를 발견했다",
-  days: "20220519 AM",
-  weather: "Cloudy Weather",
-  mmdd: "0519",
-  highlight: "오늘따라 갑자기 네 생각이 나니까",
-  content:"네가 있던 곳 우리가 있던 곳 가끔 아무 생각 없이 걷다보면 널 마중나가곤해 아직 너야 아직도 너를 사랑해 따뜻하게 입고 문 꼭 잠그고 택시 탈 땐조심해야해 집에만 있지말고 영화도 좀 보고 잘 지내야해 오늘따라 갑자기 네 생각이 나니까 오늘따라 미치게 보고싶은 너니까",
-  deadLine:"Fri May 20 2022 04:00: GMT+0900 (한국 표준시)",
+let DIARYCONTENT = {
+  title: '',
+  days: '',
+  weather: '',
+  mmdd: '',
+  highlights: '',
+  sentences: '',
   CoditionPer: {
-    R: 100,
-    G: 100,
-    B: 50
-  }
+    R: 0,
+    G: 0,
+    B: 0,
+  },
 };
-
+let highlights = '';
 const DetailGraph = () => {
-  const context = (
-  <>
-    <p>{DiaryCotent.content}</p>
-    <Link className={styled.Link} to="/">수정하기</Link>
-  </>
-  )
+  const [isLoading, setIsLoading] = useState(false);
+  const [URLSTRING] = useSearchParams();
+  const code = URLSTRING.get("postId");
+
+  const GetHandler = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        "https://oil-logintest-default-rtdb.firebaseio.com/mockup/" + code + ".json"
+      );
+      if (!response.ok) throw new Error("Something went wrong!");
+
+      const data = await response.json();
+      console.log(data)
+      const days = new Date(data.diary.content.timeStamp);
+
+      DIARYCONTENT.title = data.diary.content.title;
+      DIARYCONTENT.days = moment(days).format("YYYYMMDD A");
+      DIARYCONTENT.weather = data.diary.content.weather + " Weather";
+      DIARYCONTENT.mmdd = moment(days).format("MMDD");
+      DIARYCONTENT.highlights = data.diary.highlights;
+      DIARYCONTENT.sentences = data.diary.content.sentences;
+      DIARYCONTENT.CoditionPer.R = data.document.confidence.negative;
+      DIARYCONTENT.CoditionPer.G = data.document.confidence.neutral;
+      DIARYCONTENT.CoditionPer.B = data.document.confidence.positive;
+
+      if (DIARYCONTENT.highlights.length > 16) {
+        highlights = DIARYCONTENT.highlights.substring(0,36) + "..";
+      } else {
+        highlights = DIARYCONTENT.highlights;
+      } //문자열 자르기
+
+      console.log(DIARYCONTENT['highlights']);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  }, [code]);
+
+  useEffect(() => {
+    GetHandler();
+  }, [GetHandler]);
+
     return (
       <div className={styled.div}>
-        <div className="ConditionBox">
-          <DiaryPage
-            title={DiaryCotent["title"]}
-            days={DiaryCotent["days"]}
-            weather={DiaryCotent["weather"]}
-            mmdd={DiaryCotent["mmdd"]}
-            preview={DiaryCotent.CoditionPer}
-          ></DiaryPage>
-          <Wave color={DiaryCotent.CoditionPer} />
-          <h3>부 정</h3>
-          <p>
-            우리는 남의 기쁨에서 우리 자신의 슬픔을 뽑아오고 남의 슬픔에서
-            기쁨을 얻어온다
-          </p>
-          <Card maxWidth="600">
-            <span className={styled.span}>
-              <h4>부 정</h4>
-              <div>
-                <ProgressBar
-                  color={"#007bb1"}
-                  persent={DiaryCotent.CoditionPer["R"].toFixed(1)}
-                />
-              </div>
-              <h4>{DiaryCotent.CoditionPer["R"].toFixed(1)}%</h4>
-            </span>
-            <span className={styled.span}>
-              <h4>중 립</h4>
-              <div>
-                <ProgressBar
-                  color={"#b1b1b1"}
-                  persent={DiaryCotent.CoditionPer["G"].toFixed(1)}
-                />
-              </div>
-              <h4>{DiaryCotent.CoditionPer["G"].toFixed(1)}%</h4>
-            </span>
-            <span className={styled.span}>
-              <h4>긍 정</h4>
-              <div>
-                <ProgressBar
-                  color={"#1c7202"}
-                  persent={DiaryCotent.CoditionPer["B"].toFixed(1)}
-                />
-              </div>
-              <h4>{DiaryCotent.CoditionPer["B"].toFixed(1)}%</h4>
-            </span>
-            <Accordion
-              children={<Highlight text={`${DiaryCotent.highlight}`} />}
-              context={context}
-            />
-          </Card>
-        </div>
+        {!isLoading && (
+          <div className="ConditionBox">
+            <DiaryPage
+              title={DIARYCONTENT["title"]}
+              days={DIARYCONTENT["days"]}
+              weather={DIARYCONTENT["weather"]}
+              mmdd={DIARYCONTENT["mmdd"]}
+              preview={DIARYCONTENT.CoditionPer}
+            ></DiaryPage>
+            <Wave color={DIARYCONTENT.CoditionPer} />
+            <h3>부 정</h3>
+            <p>
+              우리는 남의 기쁨에서 우리 자신의 슬픔을 뽑아오고 남의 슬픔에서
+              기쁨을 얻어온다
+            </p>
+            <Card maxWidth="600">
+              <span className={styled.span}>
+                <h4>부정적</h4>
+                <div>
+                  <ProgressBar
+                    color={"#DB9791"}
+                    persent={DIARYCONTENT.CoditionPer["R"].toFixed(1)}
+                  />
+                </div>
+                <h4>{DIARYCONTENT.CoditionPer["R"].toFixed(1)}%</h4>
+              </span>
+              <span className={styled.span}>
+                <h4>모호한</h4>
+                <div>
+                  <ProgressBar
+                    color={"#CADB69"}
+                    persent={DIARYCONTENT.CoditionPer["G"].toFixed(1)}
+                  />
+                </div>
+                <h4>{DIARYCONTENT.CoditionPer["G"].toFixed(1)}%</h4>
+              </span>
+              <span className={styled.span}>
+                <h4>긍정적</h4>
+                <div>
+                  <ProgressBar
+                    color={"#80ABDB"}
+                    persent={DIARYCONTENT.CoditionPer["B"].toFixed(1)}
+                  />
+                </div>
+                <h4>{DIARYCONTENT.CoditionPer["B"].toFixed(1)}%</h4>
+              </span>
+              <Accordion
+                children={
+                  <span className={styled.contentTitle}>
+                    <Highlight text={`${highlights}`} />
+                    <button>
+                      <CreateIcon color="primary" sx={{
+                        '&:hover': {
+                          color: 'red', 
+                          cursor: 'pointer'
+                        }}}/>
+                    </button>
+                    <button>
+                      <DeleteSweepIcon color="primary" sx={{
+                        '&:hover': {
+                          color: 'red', 
+                          cursor: 'pointer'
+                        }}} />
+                    </button>
+                  </span>
+                }
+                open={true}
+                context={<span>{DIARYCONTENT.sentences}</span>}
+              />
+            </Card>
+          </div>
+        )}
         <p>* 일기는 익일 새벽 4시를 기준으로 수정이 불가합니다</p>
       </div>
     );};

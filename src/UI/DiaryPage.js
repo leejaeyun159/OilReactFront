@@ -4,9 +4,9 @@ const ConditionPreview = styled.div`
   border: solid white 2px;
   border-radius: 15px;
   background-color: rgb(
-    ${(props) => props.preview["R"]},
-    ${(props) => props.preview["G"]},
-    ${(props) => props.preview["B"]}
+    ${(props) => (props.preview["R"] / 100) * 255},
+    ${(props) => (props.preview["G"] / 100) * 255},
+    ${(props) => (props.preview["B"] / 100) * 255}
   );
   width: 8px;
   height: 8px;
