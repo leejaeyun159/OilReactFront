@@ -1,5 +1,15 @@
 import styled from'styled-components'
 
+const ColorTag = styled.div`
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight:200;
+  font-size:20px;
+  transform: translate(-50%, -50%);
+`;
+
 const Wrap = styled.div`
   width: 180px;
   height: 180px;
@@ -53,10 +63,18 @@ const WaveCompo2 = styled.div`
     }
 `;
 
-
 const Wave =(props)=>{
+
+    // const valueToHex = (value)=>{
+    //   let hex = Number(value).toString(16);
+    //   return hex.length === 1 ? '0' + hex : hex;
+    // }
+    // const rgbToHex =(props)=>{
+    //   return valueToHex(props.color.R) + valueToHex(props.color.G) + valueToHex(props.color.B);
+    // }
     return (
         <Wrap color={props.color}>
+          {/* <ColorTag>{rgbToHex(props)}</ColorTag> */}
           <WaveCompo></WaveCompo>
           <WaveCompo2></WaveCompo2>
         </Wrap>

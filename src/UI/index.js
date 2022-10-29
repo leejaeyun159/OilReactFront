@@ -1,5 +1,6 @@
 import ProgressBar from "./ProgressBar";
 import Card from "./Card";
+import Clock from "./Clock";
 import Wave from "./Wave";
 import Nav from "./Nav";
 import DiaryPage from "./DiaryPage";
@@ -13,6 +14,7 @@ import DiaryTextField from "./DiaryTextField";
 export {
   ProgressBar,
   Card,
+  Clock,
   Wave,
   Nav,
   DiaryPage,

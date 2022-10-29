@@ -11,7 +11,7 @@ const OilNav = styled.div`
   background: var(--maincolor);
   box-shadow: 0 0 7px 0 #000000;
 `;
-  const LeftChild = styled.div`
+const LeftChild = styled.div`
   padding:5px 0;
   margin:auto;
 }

@@ -1,4 +1,4 @@
-.div {
+.calendarBox {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -9,14 +9,14 @@
     margin-top: 30px;
 }
 
-.div >span {
+.calendarBox >span {
     display: flex;
     justify-content: space-start;
     align-items:baseline;
     gap:4px;
 }
 
-.div>span>h4{
+.calendarBox>span>h4{
     font-weight: 400;
     font-size:14px;
     color:gray;
@@ -37,3 +37,41 @@
     border:0;
 }
 
+.feedBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 280px;
+    max-width: 700px;
+    position: relative;
+}
+
+.feedBox > a {
+    width: 100%;
+}
+
+.Number {
+    gap: 30px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.Condition {
+    border-radius: 18px;
+    padding:5px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color:white;
+}
+.Negative{
+    background-color: #db9791;
+}
+.Nutreal {
+    background-color: #CADB69;
+}
+.Positive{
+    background-color: #80abdb;
+}
