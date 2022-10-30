@@ -1,17 +1,3 @@
-const today = new Date();
-const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-
-const date = [
-  {
-    name: "오늘",
-    value: today,
-  },
-  {
-    name: "어제",
-    value: yesterday,
-  },
-];
-
 const weather = [
   {
     name: "맑음",
@@ -149,7 +135,7 @@ const saying = {
       Name: "닉부이치치",
     },
   ],
-  nutreal: [
+  neutral: [
     {
       Id: 0,
       Title:
@@ -206,4 +192,4 @@ const saying = {
   ],
 };
 
-export { saying, date, weather };
+export { saying, weather };

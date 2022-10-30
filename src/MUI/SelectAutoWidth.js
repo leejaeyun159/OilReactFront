@@ -28,6 +28,7 @@ export default function SelectVariants(props) {
           value={props.pick}
           onBlur={props.onBlur}
           onChange={props.onChange}
+          ref = {props.inputRef}
           label={props.label}
           sx={{ fontSize: 14 }}
         >

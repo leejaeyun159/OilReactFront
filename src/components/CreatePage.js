@@ -1,13 +1,22 @@
 import styled from './CreatePage.module.css';
-import { useRef, useState } from 'react'
+import { useRef, useState, useContext } from 'react'
 import { Card ,DiaryTextField, TextField} from "../UI";
 import { SelectAutoWidth,LoadingButtonsTransition } from "../MUI";
-import { date, weather } from '../API/optionData';
+import { weather } from '../API/optionData';
 import useValid from '../Hooks/use-valid';
+import AuthContext from '../store/oil-context';
+import usePost from "../Hooks/use-post";
 
-const CreatePage =()=>{
+const CreatePage =(props)=>{
+  const titleInputRef = useRef();
+  const textInputRef = useRef();
+  const weatherInputRef = useRef();
+
+  const {
+      sendRequest
+  } = usePost();
+  
   const [loading, setLoading] = useState(false);
-  const [datePick, setDatePick] = useState(""); //date 데이터 처리
   const [weatherPick, setWeatherPick] = useState(""); //weather 데이터 처리
 
   const { value: weatherValue, isValid: weatherValid, validError: weatherValidError,
@@ -27,13 +36,27 @@ const CreatePage =()=>{
     formIsValid = true;
   } //버튼 활성화 조건문
 
-  // const diaryTitle = useRef();
-
-  function handleClick() {
+  const handleClick=(e)=> {
+    if (!weatherValid || !titleValid || !textValid) return;
     setLoading(true);
-    setTimeout(() => {
+  
+    e.preventDefault();
+    const enterdTitle = titleInputRef.current.value;
+    const enteredText = textInputRef.current.value;
+    
+    const requsetBody = {
+      title: enterdTitle,
+      content: enteredText,
+      weather: weatherPick,
+      url: "http://18.181.249.83:8080/api/posts/write",
+    };
+    sendRequest(requsetBody, "postDiary", props.close, props.onPost);
+    
+    weatherReset();
+    titleReset();
+    textReset();
+    //보내고 초기화
     setLoading(false);
-      }, 3000);
   }
 
     const weatherChangeHandler = (e) => {
@@ -41,39 +64,23 @@ const CreatePage =()=>{
       weatherEnterChangeHandler(e);
     }
 
-  const submitHandler =(e)=>{
-    e.preventDefault();
-    if(!weatherValid || !titleValid || !textValid) return;
-    
-    weatherReset();
-    titleReset();
-    textReset(); 
-    //보내고 초기화
-  }
-
 return (
-  <form className={styled.form} onSubmit={submitHandler}>
+  <form className={styled.form}>
     <Card>
       <Card>
         <div>
-          {/* <SelectAutoWidth
-            label="날짜"
-            list={date}
-            onBlur={dateBlurHandler}
-            onChange={dateChangeHandler}
-            pick={datePick}
-          /> */}
           <SelectAutoWidth
             label="날씨"
             list={weather}
             onBlur={weatherBlurHandler}
             onChange={weatherChangeHandler}
+            inputRef={weatherInputRef}
             pick={weatherPick}
           />
         </div>
         <LoadingButtonsTransition
           child="등록"
-          loadingHandler={handleClick}
+          onClick={handleClick}
           loading={loading}
           disabled={!formIsValid}
         />
@@ -84,12 +91,14 @@ return (
         fsize="20"
         onBlur={titleBlurHandler}
         onChange={titleEnterChangeHandler}
+        inputRef={titleInputRef}
       />
       <DiaryTextField
         place="내용을 입력하세요"
         type="text"
         onBlur={textBlurHandler}
         onChange={textEnterChangeHandler}
+        inputRef={textInputRef}
       />
       { weatherValidError ||
       titleValidError ||

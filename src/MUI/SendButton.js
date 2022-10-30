@@ -19,7 +19,7 @@ export default function LoadingButtonsTransition(props) {
       >
         <LoadingButton
           size="large"
-          onClick={props.loadingHandler}
+          onClick={props.onClick}
           endIcon={<EditIcon />}
           loading={props.loading}
           loadingPosition="end"

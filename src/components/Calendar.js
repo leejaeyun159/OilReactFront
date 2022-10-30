@@ -1,5 +1,5 @@
 import Calendar from "react-calendar";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import moment from "moment";
 import "react-calendar/dist/Calendar.css";
 import styled from "./Calendar.module.css";
@@ -22,11 +22,47 @@ const markCondition = {
   "07-10-2022": "positive",
   "12-10-2022": "default",
   "13-10-2022": "default",
-  "15-10-2022": "default"
+  "15-10-2022": "default",
 };
 
+// let MARKCONDITION = {};
+let DAYSKEY = [];
 const OilCalendar = () => {
   const [date, setDate] = useState(new Date());
+  // const [isLoading,setIsLoading] = useState(false);
+  //   const GetHandler = useCallback(async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const response = await fetch(
+  //         "https://oil-logintest-default-rtdb.firebaseio.com/mockup.json"
+  //       ); // 달단위로 처리
+  //       if (!response.ok) throw new Error("Something went wrong!");
+  //       const res = await response.json();
+  //       for (const key in res) {
+  //         if (
+  //           DAYSKEY.includes(
+  //             moment(res[key].diary.content.timeStamp).format("DD-MM-YYYY")
+  //           )
+  //         )
+  //           break;
+  //         DAYSKEY.push(
+  //           moment(res[key].diary.content.timeStamp).format("DD-MM-YYYY")
+  //         ); //중복된 key값이 있으면 안불러옴
+  //         MARKCONDITION[
+  //           moment(res[key].diary.content.timeStamp).format("DD-MM-YYYY")
+  //         ] = res[key].document.sentiment;
+  //       }
+  //       console.log(DAYSKEY);
+  //       console.log(MARKCONDITION);
+  //     } catch (error) {
+  //       console.lot(error);
+  //     }
+  //     setIsLoading(true);
+  //   }, []);
+
+  //   useEffect(() => {
+  //     GetHandler();
+  //   }, [GetHandler]);
 
   return (
     <div>
@@ -80,7 +116,7 @@ const OilCalendar = () => {
             부 정 1
           </div>
           <div
-            className={`${styled.Condition} ${styled.Nutreal}`}
+            className={`${styled.Condition} ${styled.Neutral}`}
             color={"#CADB69"}
           >
             평 범 3

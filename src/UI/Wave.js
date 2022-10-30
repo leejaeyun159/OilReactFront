@@ -1,13 +1,22 @@
 import styled from'styled-components'
+import Swal from "sweetalert2";
 
 const ColorTag = styled.div`
-  color: white;
+  color: transparent;
   position: absolute;
+  border-radius: 15px;
   top: 50%;
+  box-sizing: content-box;
   left: 50%;
-  font-weight:200;
-  font-size:20px;
+  font-weight: 500;
+  font-size: 20px;
+  padding:100px;
   transform: translate(-50%, -50%);
+  z-index:300;
+  &:hover {
+    color: white;
+    cursor: pointer;
+  }
 `;
 
 const Wrap = styled.div`
@@ -30,6 +39,7 @@ const Wrap = styled.div`
   box-shadow: 0px 13px 11px #bbbbbb;
   transform: translate3d(0, 0, 0);
   margin: 20px auto;
+  
 `;
 const WaveCompo = styled.div`
   width: 430px;
@@ -65,16 +75,32 @@ const WaveCompo2 = styled.div`
 
 const Wave =(props)=>{
 
-    // const valueToHex = (value)=>{
-    //   let hex = Number(value).toString(16);
-    //   return hex.length === 1 ? '0' + hex : hex;
-    // }
-    // const rgbToHex =(props)=>{
-    //   return valueToHex(props.color.R) + valueToHex(props.color.G) + valueToHex(props.color.B);
-    // }
+    const valueToHex = (value)=>{
+      let hex = Number(value).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    }
+    const rgbToHex =(props)=>{
+      return (
+        valueToHex(props.color.R.toFixed(0)) +
+        valueToHex(props.color.G.toFixed(0)) +
+        valueToHex(props.color.B.toFixed(0))
+      );
+    }
+    const copy =() =>{
+      navigator.clipboard.writeText(`#${rgbToHex(props)}`)
+    }
     return (
         <Wrap color={props.color}>
-          {/* <ColorTag>{rgbToHex(props)}</ColorTag> */}
+          <ColorTag id="color" onClick={()=>{
+            Swal.fire({
+              title: "클립보드 복사",
+              text: "오늘의 색깔이 클립보드에 복사되었습니다.",
+              icon: "success",
+              confirmButtonColor: "#002560",
+              confirmButtonText: "확인",
+            });
+            copy();
+            }}>{`#${rgbToHex(props)}`}</ColorTag>
           <WaveCompo></WaveCompo>
           <WaveCompo2></WaveCompo2>
         </Wrap>

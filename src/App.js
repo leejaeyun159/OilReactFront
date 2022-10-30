@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import { Nav, Footer } from './UI';
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { Calendar, DetailGraph, FindPassword, InitialPage, Login, MainFeed, Register, SearchingPage, Statistics, FindPasswordSend, FAQ, DeleteAccount } from './components';

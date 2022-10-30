@@ -7,8 +7,9 @@ const usePost = () =>{
     const [isResponse, setIsResponse] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const authCtx = useContext(OilContext);
+    const TOKEN = authCtx.token;
 
-    const sendRequest = (requsetBody, mode) =>{
+    const sendRequest = (requsetBody, mode, close, onPost) =>{
         setIsLoading(true);
         let postRequestPayload ={};
 
@@ -48,6 +49,19 @@ const usePost = () =>{
                 })
             };
             break;
+          case 'postDiary':
+            postRequestPayload = {
+              headers: {
+                "Authorization": "Bearer "+TOKEN,
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: qs.stringify({
+                title: requsetBody.title ? requsetBody.title : '',
+                content: requsetBody.content ? requsetBody.content : '',
+                weather: requsetBody.weather ? requsetBody.weather : ''
+              }),
+            };
+            break;
           default:
             postRequestPayload = {}          
         }
@@ -60,17 +74,30 @@ const usePost = () =>{
           .then((res) => res.json())
           .then((res) => {
             setIsResponse(res);
-            Swal.fire({
-              title: res.success ? "환영합니다" : "에러!",
-              text: res.success ? "오늘의 감정을 남겨보세요" : res.message,
-              icon: res.success ? "success" : "error",
-              confirmButtonColor: "#002560",
-              confirmButtonText: "확인",
-            });
             if(mode==='login'){
-              console.log(res)
+              Swal.fire({
+                title: res.success ? "환영합니다" : "에러!",
+                text: res.success ? "오늘의 감정을 남겨보세요" : res.message,
+                icon: res.success ? "success" : "error",
+                confirmButtonColor: "#002560",
+                confirmButtonText: "확인",
+              });
               const expiractionTime = new Date(new Date().getTime() + 10800000);
-              authCtx.login(res.data, expiractionTime.toISOString());
+              authCtx.login(res.data.token, expiractionTime.toISOString());
+            }
+            else if (mode === "postDiary") {
+              Swal.fire({
+                title: res.success ? "게시물 등록" : "에러!",
+                text: res.success ? "정상적으로 등록되었습니다" : res.message,
+                icon: res.success ? "success" : "error",
+                confirmButtonColor: "#002560",
+                confirmButtonText: "확인",
+              });
+              if(res.success){
+                close();
+                setTimeout(()=>onPost(),2000);
+                
+              }
             }
           })
           .catch((err) => {

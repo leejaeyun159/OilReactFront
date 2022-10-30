@@ -33,6 +33,7 @@ const DiaryTextField = (props) => {
           type={props.type}
           onBlur={props.onBlur}
           onChange={props.onChange}
+          ref={props.inputRef}
           ></Field>;
 };
 export default DiaryTextField;

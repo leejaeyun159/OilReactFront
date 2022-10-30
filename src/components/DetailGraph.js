@@ -1,13 +1,14 @@
 import styled from "./DetailGraph.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import { ProgressBar, Card, Wave, DiaryPage, Highlight, Clock } from "../UI/";
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { saying } from '../API/optionData';
 import { Accordion } from "../MUI";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import CreateIcon from "@mui/icons-material/Create";
 import moment from "moment/moment";
 import Swal from 'sweetalert2';
+import AuthContext from "../store/oil-context";
 
 let DIARYCONTENT = {
   title: '',
@@ -24,37 +25,50 @@ let DIARYCONTENT = {
     B: 0,
   },
 };
-let highlights = '';
+
+let highlights;
 let days;
+
 const DetailGraph = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [URLSTRING] = useSearchParams();
   const code = URLSTRING.get("postId");
   const rd = Math.floor(Math.random()*9);
+  const authCtx = useContext(AuthContext);
+  const TOKEN = authCtx.token;
+  const getRequestPayload = {
+    headers: {
+      Authorization: "Bearer " + TOKEN,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+const navigate = useNavigate();
 
   const GetHandler = useCallback(async () => {
     setIsLoading(true);
+    highlights='';
     try {
-      const response = await fetch(
-        "https://oil-logintest-default-rtdb.firebaseio.com/mockup/" + code + ".json"
-      );
-      if (!response.ok) throw new Error("Something went wrong!");
+      const getFetch = await fetch("http://18.181.249.83:8080/api/posts/"+code, {
+        method: "GET",
+        headers: getRequestPayload.headers,
+        redirect: "follow",
+      });
 
-      const data = await response.json();
-      console.log(data)
-      days = new Date(data.diary.content.timeStamp);
-      DIARYCONTENT.title = data.diary.content.title;
+      const response = await getFetch.json();
+      const result = response.data;
+      days = new Date(result.updatedAt);
+      DIARYCONTENT.title = result.title;
       DIARYCONTENT.days = moment(days).format("YYYYMMDD A");
-      DIARYCONTENT.weather = data.diary.content.weather + " Weather";
+      DIARYCONTENT.weather = result.weather + " Weather";
       DIARYCONTENT.mmdd = moment(days).format("MMDD");
-      DIARYCONTENT.highlights = data.diary.highlights;
-      DIARYCONTENT.sentences = data.diary.content.sentences;
-      DIARYCONTENT.sentiment = data.document.sentiment==="positive"?"긍 정"
-      :(data.document.sentiment==="negative"?"부 정":"평 범");
-      DIARYCONTENT.CoditionPer.R = data.document.confidence.negative;
-      DIARYCONTENT.CoditionPer.G = data.document.confidence.neutral;
-      DIARYCONTENT.CoditionPer.B = data.document.confidence.positive;
-      DIARYCONTENT.saying = saying[data.document.sentiment][rd];
+      DIARYCONTENT.highlights = result.highlights ? result.highlights:"오늘의 한마디가 없습니다";
+      DIARYCONTENT.sentences = result.content;
+      DIARYCONTENT.sentiment = result.sentiment==="positive"?"긍 정"
+      :(result.sentiment==="negative"?"부 정":"평 범");
+      DIARYCONTENT.CoditionPer.R = result.negative;
+      DIARYCONTENT.CoditionPer.G = result.neutral;
+      DIARYCONTENT.CoditionPer.B = result.positive;
+      DIARYCONTENT.saying = saying[result.sentiment][rd];
       if (DIARYCONTENT.highlights.length > 16) {
         highlights = DIARYCONTENT.highlights.substring(0,36) + "..";
       } else {
@@ -64,8 +78,37 @@ const DetailGraph = () => {
       console.log(error);
     }
     setIsLoading(false);
-  }, [code]);
+  }, []);
 
+const DeleteHandler = useCallback(async () => {
+  setIsLoading(true);
+  highlights = "";
+  try {
+    const getFetch = await fetch(
+      "http://18.181.249.83:8080/api/posts/" + code,
+      {
+        method: "DELETE",
+        headers: { Authorization: getRequestPayload.headers["Authorization"] },
+        redirect: "follow",
+      }
+    );
+    const response = getFetch.json();
+    console.log(response.message);
+    navigate("/mainFeed", { replace: true });
+      Swal.fire({
+        title: "게시물 삭제",
+        text: response.message,
+        // getFetch.data.message,
+        icon: "success",
+        confirmButtonColor: "#002560",
+        confirmButtonText: "확인",
+      });
+  } catch (error) {
+    console.log(error);
+  }
+  setIsLoading(false);
+}, []);
+  
   useEffect(() => {
     GetHandler();
   }, [GetHandler]);
@@ -166,13 +209,7 @@ const DetailGraph = () => {
                           cancelButtonText: "취소",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            Swal.fire({
-                              title: "게시물 삭제",
-                              text: "게시물이 삭제되었습니다",
-                              icon: "success",
-                              confirmButtonColor: "#002560",
-                              confirmButtonText: "확인",
-                            });
+                            DeleteHandler();
                           }
                         });
                       }}
