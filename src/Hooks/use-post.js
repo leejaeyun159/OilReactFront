@@ -14,14 +14,14 @@ const usePost = () =>{
         let postRequestPayload ={};
 
         switch(mode){
-          case 'emailSend': //이메일 전송
+          case 'emailSend': //회원가입 ,비밀번호 찾기 이메일 전송
             postRequestPayload={
                 headers : {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Cookie": "emailKey=%242b%2410%24%2Fbx%2FaNTrqRNLw6ve62CW9uVNnie77JQNCDKhiNf9fWidT9NobJnHq"
+                "Content-Type": "application/x-www-form-urlencoded"
                 },
                 body : qs.stringify({
-                    email:requsetBody.email?requsetBody.email:''
+                    email:requsetBody.email?requsetBody.email:'',
+                    type:requsetBody.type?requsetBody.type:''
                 })
             }
             break;
@@ -69,12 +69,22 @@ const usePost = () =>{
           method: "POST",
           redirect: "follow",
           headers: postRequestPayload.headers,
-          body: postRequestPayload.body,
+          body: postRequestPayload.body
         })
           .then((res) => res.json())
           .then((res) => {
             setIsResponse(res);
-            if(mode==='login'){
+            if(mode==='emailSend'){
+              Swal.fire({
+                title: res.success ? "이메일 전송" : "에러!",
+                text: res.success ? "인증번호가 전송되었습니다" : res.message,
+                icon: res.success ? "success" : "error",
+                confirmButtonColor: "#002560",
+                confirmButtonText: "확인"
+              });
+              localStorage.setItem('AUTHCODE',res.data);
+            }
+            else if(mode==='login'){
               Swal.fire({
                 title: res.success ? "환영합니다" : "에러!",
                 text: res.success ? "오늘의 감정을 남겨보세요" : res.message,

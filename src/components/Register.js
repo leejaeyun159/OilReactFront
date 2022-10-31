@@ -4,8 +4,9 @@ import { useRef, useState } from 'react';
 import { TextField, Button } from '../UI';
 import {text} from '../API/privacy'
 import usePost from "../Hooks/use-post";
-import usePut from "../Hooks/use-put";
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+
 
 const VALIDCHECK = {
   EMAILVALID: /\w+@\w+\.\w+(\.\w+)?/,
@@ -13,9 +14,10 @@ const VALIDCHECK = {
 }; //정규식 모음
 
 const Register =()=>{
-  const [isEmfomat, setIsEmformat] = useState(false);
-  const [isEqual, setIsEqual] = useState(false)
-  const [isValid, setIsValid] = useState(false)
+  const [isEmformat, setIsEmformat] = useState(false);
+  const [isEqual, setIsEqual] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+  const [isAuthCode, setIsAuthCode] = useState(false);
   
   const emailInputRef = useRef();
   const nickRef = useRef();
@@ -25,25 +27,24 @@ const Register =()=>{
 
   const navigate = useNavigate();
   
-  const lastButton = isEqual && isValid;
+  const lastButton = isEqual && isValid && isAuthCode;
 
   const {
     sendRequest: emailreqBody,
-    isResponse: emailRes //인증코드창 활성화 
+    isResponse: emailRes, //인증코드창 활성화 
+    isLoading: emailLoading
   } = usePost(); //이메일 전송 hook(POST)
 
   const {
     sendRequest: registerBody,
     isResponse: registerRes,
-    isLoading
+    isLoading: registerLoading
   } = usePost(); //회원가입 전송 hook(POST)
   
-  const {
-    sendRequest: authCodeBody,
-    isResponse: authcoderes
-  } = usePut(); //수정예정
-
   const EmailFormatValid =()=>{
+    setIsAuthCode(false); //인증번호 받고 이메일 바꾸면 다시바꿈
+    localStorage.removeItem('EMAIL');
+    localStorage.removeItem('AUTHCODE'); 
     if(VALIDCHECK.EMAILVALID.test(emailInputRef.current.value)){
       setIsEmformat(true);
     }else setIsEmformat(false);
@@ -67,6 +68,7 @@ const Register =()=>{
     const enteredEmail = emailInputRef.current.value;
     const requestBody = {
       email: enteredEmail,
+      type: "register",
       url: "http://18.181.249.83:8080/api/auth/email-key"
     };
     emailreqBody(requestBody,'emailSend'); //이메일 전송
@@ -74,12 +76,28 @@ const Register =()=>{
 
   const AuthCodeConfirmHandler = e =>{
     e.preventDefault();
-    const enteredAuthCode = CodeInputRef.current.value;
-    const requestBody = {
-      key: enteredAuthCode,
-      url: "http://18.181.249.83:8080/api/auth/check/email-key"
-    };
-    authCodeBody(requestBody,"authCodeConSend"); //회원가입 전송
+    const AuthCode = localStorage.getItem('AUTHCODE');
+    const enteredAuthcode = CodeInputRef.current.value;
+    if(AuthCode === enteredAuthcode){
+      setIsAuthCode(true); 
+      Swal.fire({
+        title: "인증성공",
+        text: "인증번호가 일치합니다",
+        icon: "success",
+        confirmButtonColor: "#002560",
+        confirmButtonText: "확인",
+      });
+    }
+    else{
+      localStorage.removeItem('AUTHCODE');
+      Swal.fire({
+        title: "인증실패",
+        text: "인증번호 재전송을 통해 다시 시도해주세요",
+        icon: "warning",
+        confirmButtonColor: "red",
+        confirmButtonText: "확인",
+      });
+    }
   }
 
   const submitHandler = e => {
@@ -94,6 +112,8 @@ const Register =()=>{
        url: "http://18.181.249.83:8080/api/auth/register",
      };
      registerBody(requestBody, 'register');
+     localStorage.removeItem('AUTHCODE');
+     localStorage.removeItem('EMAIL');
      console.log("결과" + registerRes.success);
      navigate('/login',{replace:true});
    };
@@ -102,7 +122,8 @@ const Register =()=>{
       <div className={styled.formRegister}>
         <h2>회원가입</h2>
         <h3>아이디(이메일 인증)</h3>
-        <p>이메일 형식으로 입력해주세요</p>
+        {!emailLoading && <p>이메일 형식으로 입력해주세요</p>}
+        {emailLoading && <LinearProgress sx={{ m: 2 }} />}
         <form>
           <TextField
             place="아이디"
@@ -110,23 +131,14 @@ const Register =()=>{
             inputRef={emailInputRef}
             onChange={EmailFormatValid}
           />
-          {isEmfomat && (
-            <Button
-              type="submit"
-              child="인증번호전송"
-              padding="5"
-              onClick={EmailSubmitHandler}
-            />
-          )}
-          {!isEmfomat && (
-            <Button
-              type="submit"
-              child="인증번호전송"
-              padding="5"
-              bgcolor="grey"
-              disabled={true}
-            />
-          )}
+          <Button
+            type="submit"
+            child="인증번호전송"
+            padding="5"
+            onClick={EmailSubmitHandler}
+            bgcolor={!isEmformat ? "grey" : ""}
+            disabled={!isEmformat}
+          />
         </form>
         {emailRes && (
           <form>
@@ -143,7 +155,6 @@ const Register =()=>{
             />
           </form>
         )}
-
         <h3>닉네임</h3>
         <TextField place="닉네임" type="text" inputRef={nickRef} />
         <h3>비밀번호</h3>
@@ -168,25 +179,15 @@ const Register =()=>{
         </span>
         <h3>개인정보 취급방침 동의</h3>
         <div id="privacy">{text}</div>
-        {lastButton && (
-          <Button
-            type="submit"
-            child="약관 동의 및 회원가입"
-            padding="10"
-            onClick={submitHandler}
-          />
-        )}
-        {!lastButton && (
-          <Button
-            type="submit"
-            child="약관 동의 및 테스트"
-            padding="10"
-            onClick={submitHandler}
-            bgcolor="grey"
-            disabled={true}
-          />
-        )}
-        {isLoading && <LinearProgress sx={{ mb: 2 }} />}
+        <Button
+          type="submit"
+          child="약관 동의 및 회원가입"
+          padding="10"
+          onClick={submitHandler}
+          bgcolor={lastButton ? "" : "grey"}
+          disabled={!lastButton}
+        />
+        {registerLoading && <LinearProgress sx={{ mb: 2 }} />}
       </div>
     );
 }

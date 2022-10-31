@@ -1,9 +1,9 @@
 import styled from './FindPassword.module.css'
 import {TextField,Button } from '../UI'
 import { useState, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import usePassWordFind from '../Hooks/use-pwfind';
+import usePut from '../Hooks/use-put';
 import LinearProgress from "@mui/material/LinearProgress";
+import { useNavigate } from "react-router-dom";
 
 const PWVAILD = /(?=.*\d)(?=.*?[#?!@$%^&*-])(?=.*[a-zA-ZS]).{6,}/; //비밀번호 유효성 검사
 
@@ -13,15 +13,12 @@ const FindPassword =()=>{
   const passwordInputRef = useRef();
   const passwordInputConfirmRef = useRef();
   const lastButton = isValid && isEqual;
-
-  const [AuthCode] = useSearchParams();
-  const code = AuthCode.get('oobCode');
+  const navigate = useNavigate();
 
   const {
-    sendRequest:chagePwFn,
-    isResponse:chageRes,
+    sendRequest,
     isLoading
-  } = usePassWordFind();
+  } = usePut();
 
   const passwordFormatValid =()=>{
     if(PWVAILD.test(passwordInputRef.current.value))
@@ -37,14 +34,16 @@ const FindPassword =()=>{
 
   const submitHandler =(e) =>{
     e.preventDefault();
+    const enteredEmail = localStorage.getItem("EMAIL");
     const enterNewPassword = passwordInputRef.current.value;
     const requestConfig = {
-      oobCode: code,
-      newPassword: enterNewPassword,
-      url: "https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=",
+      email: enteredEmail,
+      password: enterNewPassword,
+      url: "http://18.181.249.83:8080/api/auth/password",
     };
-    chagePwFn(requestConfig,"change");
-    console.log('변경결과' + chageRes);
+    sendRequest(requestConfig, "passwordChange");
+    localStorage.removeItem('EMAIL');
+    navigate('/login', {replace:true})
   }
 
     return (
@@ -68,26 +67,17 @@ const FindPassword =()=>{
         />
         <span className={styled.pwSpan}>
           <p>비밀번호 유효 {isValid ? "✅" : "⬜"}</p>
-          <p>비밀번호 일치{isEqual ? "✅" : "⬜"}</p>
+          <p>비밀번호 일치 {isEqual ? "✅" : "⬜"}</p>
         </span>
-        {lastButton && (
           <Button
             type="submit"
             child="비밀번호 변경"
             padding="10"
             onClick={submitHandler}
+            bgcolor={lastButton?"":"grey"}
+            disabled={!lastButton}
           />
-        )}
-        {!lastButton && (
-          <Button
-            type="submit"
-            child="비밀번호 변경"
-            padding="10"
-            bgcolor="grey"
-            disabled={true}
-          />
-        )}
-        {isLoading && <LinearProgress sx={{ mb: 2 }} />}
+        {isLoading && <LinearProgress sx={{ m: 2 }} />}
       </div>
     );
 }
