@@ -1,15 +1,14 @@
-import styled from './FindPassword.module.css'
-import {TextField,Button } from '../UI'
-import { useRef, useState, useContext } from 'react';
+import styled from "./FindPassword.module.css";
+import { TextField, Button } from "../UI";
+import { useRef, useState, useContext } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
-import usePost from '../Hooks/use-post';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../store/oil-context';
-
+import usePost from "../Hooks/use-post";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../store/oil-context";
 
 const VALIDCHECK = {
-  EMAILVALID: /\w+@\w+\.\w+(\.\w+)?/
+  EMAILVALID: /\w+@\w+\.\w+(\.\w+)?/,
 }; //정규식 모음
 
 const FindPasswordSend = () => {
@@ -18,7 +17,7 @@ const FindPasswordSend = () => {
   const CodeInputRef = useRef();
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn
+  const isLoggedIn = authCtx.isLoggedIn;
 
   const EmailFormatValid = () => {
     localStorage.removeItem("EMAIL");
@@ -37,7 +36,7 @@ const FindPasswordSend = () => {
   const submitEmailHandler = (e) => {
     e.preventDefault();
     const enteredEmail = emailInputRef.current.value;
-    localStorage.setItem("EMAIL",enteredEmail);
+    localStorage.setItem("EMAIL", enteredEmail);
     const requestBody = {
       email: enteredEmail,
       type: "password",
@@ -50,9 +49,7 @@ const FindPasswordSend = () => {
     e.preventDefault();
     const AuthCode = localStorage.getItem("AUTHCODE");
     const enteredAuthcode = CodeInputRef.current.value;
-    if (AuthCode === enteredAuthcode
-      && isEmformat
-      ) {
+    if (AuthCode === enteredAuthcode && isEmformat) {
       Swal.fire({
         title: "인증성공",
         text: "새로운 비밀번호를 설정해주세요",
@@ -119,6 +116,6 @@ const FindPasswordSend = () => {
       )}
     </div>
   );
-};;
+};
 
 export default FindPasswordSend;

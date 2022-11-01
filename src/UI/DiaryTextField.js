@@ -7,13 +7,13 @@ const Field = styled.textarea`
   border-bottom: 2px solid var(--maincolor);
   background-color: transparent;
   margin: 5px;
-  font-size:15px;
-  font-weight:500;
+  font-size: 15px;
+  font-weight: 500;
 
   height: 50vh;
   border: none;
   resize: none;
-  
+
   &:focus {
     animation: focusBlue 0.2s forwards;
   }
@@ -29,11 +29,15 @@ const Field = styled.textarea`
 `;
 
 const DiaryTextField = (props) => {
-  return <Field placeholder={props.place} 
-          type={props.type}
-          onBlur={props.onBlur}
-          onChange={props.onChange}
-          ref={props.inputRef}
-          ></Field>;
+  return (
+    <Field
+      placeholder={props.place}
+      type={props.type}
+      onBlur={props.onBlur}
+      onChange={props.onChange}
+      ref={props.inputRef}
+      defaultValue={props.defaultValue}
+    ></Field>
+  );
 };
 export default DiaryTextField;

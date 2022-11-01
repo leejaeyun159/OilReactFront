@@ -7,8 +7,8 @@ const Field = styled.input`
   border-bottom: 2px solid var(--maincolor);
   background-color: transparent;
   margin: 5px 0;
-  font-size: ${(props)=>props.fsize}px;
-  font-weight:700;
+  font-size: ${(props) => props.fsize}px;
+  font-weight: 700;
   &:focus {
     animation: focusBlue 0.2s forwards;
   }
@@ -23,17 +23,18 @@ const Field = styled.input`
   }
 `;
 
-const TextField =(props)=>{
-    return (
-      <Field
-        onBlur={props.onBlur}
-        onChange={props.onChange}
-        fsize={props.fsize}
-        placeholder={props.place}
-        type={props.type}
-        required={props.required}
-        ref={props.inputRef}
-      />
-    );
-}
-export default TextField; 
+const TextField = (props) => {
+  return (
+    <Field
+      onBlur={props.onBlur}
+      onChange={props.onChange}
+      fsize={props.fsize}
+      placeholder={props.place}
+      type={props.type}
+      required={props.required}
+      ref={props.inputRef}
+      defaultValue={props.defaultValue}
+    />
+  );
+};
+export default TextField;

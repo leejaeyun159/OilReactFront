@@ -1,37 +1,38 @@
-import styled from './Login.module.css';
+import styled from "./Login.module.css";
 import LinearProgress from "@mui/material/LinearProgress";
 import { TextField, Button, Card } from "../UI";
 import { Link } from "react-router-dom";
-import { useRef } from 'react';
+import { useRef } from "react";
 import usePost from "../Hooks/use-post";
 
 const Login = () => {
+  localStorage.clear();
+  const emailInputRef = useRef();
+  const passwordRef = useRef();
 
-    const emailInputRef = useRef();
-    const passwordRef = useRef();
-    
-    const {
-      sendRequest: loginBody,
-      isloading,
-    } = usePost();
+  const { sendRequest: loginBody, isloading } = usePost();
 
-    const loginSubmitHandler =async (e) => {
-      e.preventDefault();
-      const enteredEmail = emailInputRef.current.value;
-      const enteredPassword = passwordRef.current.value;
-      const requestBody = {
-        email: enteredEmail,
-        password: enteredPassword,
-        url: "http://18.181.249.83:8080/api/auth/login",
-      };
-      loginBody(requestBody, "login");
+  const loginSubmitHandler = async (e) => {
+    e.preventDefault();
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordRef.current.value;
+    const requestBody = {
+      email: enteredEmail,
+      password: enteredPassword,
+      url: "http://18.181.249.83:8080/api/auth/login",
     };
+    loginBody(requestBody, "login");
+  };
 
   return (
     <div className={styled.div}>
       <img src="/asset/BigLogo.png" alt="mainLogo" />
       <form onSubmit={loginSubmitHandler}>
-        <TextField place="이메일을 입력하세요" type="email" inputRef={emailInputRef}/>
+        <TextField
+          place="이메일을 입력하세요"
+          type="email"
+          inputRef={emailInputRef}
+        />
         <TextField place="⦁⦁⦁⦁⦁⦁⦁⦁" type="password" inputRef={passwordRef} />
         <Button type="submit" child="로그인" padding="10" />
         {isloading && <LinearProgress sx={{ mb: 2 }} />}

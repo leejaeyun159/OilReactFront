@@ -13,7 +13,7 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import {Link,useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import OilContext from "../store/oil-context";
 import Swal from "sweetalert2";
@@ -22,6 +22,7 @@ export default function TemporaryDrawer(props) {
   const [state, setState] = React.useState({ right: false });
   const AuthCtx = useContext(OilContext);
   const navigate = useNavigate();
+  const nickname = localStorage.getItem("USERNAME");
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -37,15 +38,14 @@ export default function TemporaryDrawer(props) {
   const iconList = [
     <CalendarMonthIcon />,
     <EqualizerIcon />,
-    <QuestionAnswerIcon/>,
-    <LockResetIcon/>,
-
+    <QuestionAnswerIcon />,
+    <LockResetIcon />,
   ];
   const linkText = ["/calendar", "/statistics", "/faq", "/authfindPW"];
 
   const logoutHandler = (e) => {
     e.preventDefault();
-    navigate('/',{replace:true});
+    navigate("/", { replace: true });
     Swal.fire({
       title: "로그아웃",
       text: "로그아웃하시겠습니까?",
@@ -57,6 +57,7 @@ export default function TemporaryDrawer(props) {
       cancelButtonText: "남아있을게요",
     }).then((result) => {
       if (result.isConfirmed) {
+        localStorage.removeItem("USERNAME");
         Swal.fire({
           title: "로그아웃",
           text: "다음에 또 만나요",
@@ -91,7 +92,7 @@ export default function TemporaryDrawer(props) {
           textAlign: "center",
         }}
       >
-        <h4>반갑습니다 신용재님</h4>
+        <h4>반갑습니다 {nickname}님</h4>
       </Box>
       <Divider />
       <List>
@@ -126,9 +127,15 @@ export default function TemporaryDrawer(props) {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button sx={{
-            p:0, minWidth:22
-          }}onClick={toggleDrawer(anchor, true)}>{props.children}</Button>
+          <Button
+            sx={{
+              p: 0,
+              minWidth: 22,
+            }}
+            onClick={toggleDrawer(anchor, true)}
+          >
+            {props.children}
+          </Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
