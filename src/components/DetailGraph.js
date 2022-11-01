@@ -165,7 +165,7 @@ const DetailGraph = () => {
               <h4>{DIARYCONTENT.CoditionPer["R"].toFixed(1)}%</h4>
             </span>
             <span className={styled.span}>
-              <h4>모호한</h4>
+              <h4>평범한</h4>
               <div>
                 <ProgressBar
                   color={"#CADB69"}
