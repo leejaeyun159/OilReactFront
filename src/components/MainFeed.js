@@ -42,29 +42,24 @@ const MainFeed = () => {
     FEEDKEY = [];
 
     try {
-      const getFetch = await fetch(
-        "http://18.181.249.83:8080/api/main?page=0",
-        {
-          method: "GET",
-          headers: getRequestPayload.headers,
-          redirect: "follow",
-        }
-      );
+      const getFetch = await fetch("http://54.64.27.138:8080/api/main?page=0", {
+        method: "GET",
+        headers: getRequestPayload.headers,
+        redirect: "follow",
+      });
 
       const response = await getFetch.json();
       const result = response.data;
 
       for (const key in result) {
-        let days = new Date(result[key].updatedAt);
-
         if (FEEDKEY.includes(key)) break;
         FEEDKEY.push(key); //중복된 key값이 있으면 안불러옴
         MAINFEED.push({
           id: result[key].id,
           title: result[key].title,
-          days: moment(days).format("YYYYMMDD A"),
+          days: result[key].yyyymmdd,
           weather: result[key].weather + " Weather",
-          mmdd: moment(days).format("MMDD"),
+          mmdd: result[key].yyyymmdd.slice(4, 9),
           CoditionPer: {
             R: result[key].negative,
             G: result[key].neutral,
@@ -72,7 +67,7 @@ const MainFeed = () => {
           },
         });
       }
-      console.log(MAINFEED);
+      console.log(result);
     } catch (error) {
       console.log(error);
       setError(error);

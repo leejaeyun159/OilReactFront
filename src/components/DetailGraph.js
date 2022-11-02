@@ -57,7 +57,7 @@ const DetailGraph = () => {
     highlights = "";
     try {
       const getFetch = await fetch(
-        "http://18.181.249.83:8080/api/posts/" + code,
+        "http://54.64.27.138:8080/api/posts/" + code,
         {
           method: "GET",
           headers: getRequestPayload.headers,
@@ -66,12 +66,12 @@ const DetailGraph = () => {
       );
       const response = await getFetch.json();
       const result = response.data;
-      days = new Date(result.updatedAt);
+      console.log(result);
       DIARYCONTENT.id = result.id;
       DIARYCONTENT.title = result.title;
-      DIARYCONTENT.days = moment(days).format("YYYYMMDD A");
+      DIARYCONTENT.days = result.yyyymmdd;
       DIARYCONTENT.weather = result.weather + " Weather";
-      DIARYCONTENT.mmdd = moment(days).format("MMDD");
+      DIARYCONTENT.mmdd = result.yyyymmdd.slice(4, 9);
       DIARYCONTENT.highlights = result.highlights
         ? result.highlights
         : "오늘의 한마디가 없습니다";
@@ -102,7 +102,7 @@ const DetailGraph = () => {
     highlights = "";
     try {
       const getFetch = await fetch(
-        "http://18.181.249.83:8080/api/posts/" + code,
+        "http://54.64.27.138:8080/api/posts/" + code,
         {
           method: "DELETE",
           headers: {

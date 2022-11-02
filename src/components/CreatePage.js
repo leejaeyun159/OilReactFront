@@ -63,7 +63,7 @@ const CreatePage = (props) => {
         title: enterdTitle,
         content: enteredText,
         weather: weatherPick,
-        url: "http://18.181.249.83:8080/api/posts/" + props.data.id,
+        url: "http://54.64.27.138:8080/api/posts/" + props.data.id,
       };
       sendPutRequest(requestBody, "putDiary", props.close, props.onPost);
     } else {
@@ -71,7 +71,7 @@ const CreatePage = (props) => {
         title: enterdTitle,
         content: enteredText,
         weather: weatherPick,
-        url: "http://18.181.249.83:8080/api/posts/write",
+        url: "http://54.64.27.138:8080/api/posts/write",
       };
       sendPostRequest(requsetBody, "postDiary", props.close, props.onPost);
     }

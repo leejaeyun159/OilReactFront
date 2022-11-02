@@ -40,7 +40,7 @@ const FindPasswordSend = () => {
     const requestBody = {
       email: enteredEmail,
       type: "password",
-      url: "http://18.181.249.83:8080/api/auth/email-key",
+      url: "http://54.64.27.138:8080/api/auth/email-key",
     };
     emailreqBody(requestBody, "emailSend");
   };
