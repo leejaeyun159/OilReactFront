@@ -30,7 +30,13 @@
     color: gray;
 }
 
-.DelBox > span > button{
+.DelBox > div > button{
     width: 40%;
 }
 
+.DelBox>div{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 4px;
+}

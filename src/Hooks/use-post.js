@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import OilContext from "../store/oil-context";
 import Swal from "sweetalert2";
@@ -8,6 +9,7 @@ const usePost = () => {
   const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(OilContext);
   const TOKEN = authCtx.token;
+  const navigate = useNavigate();
   const sendRequest = (requsetBody, mode, close, onPost) => {
     setIsLoading(true);
     let postRequestPayload = {};
@@ -105,6 +107,25 @@ const usePost = () => {
           if (res.success) {
             close();
             setTimeout(() => onPost(), 2000);
+          }
+        } else if (mode === "register") {
+          if (res.success) {
+            Swal.fire({
+              title: "가입완료",
+              text: "로그인 후 감정을 남겨보세요",
+              icon: "success",
+              confirmButtonColor: "#002560",
+              confirmButtonText: "확인",
+            });
+            navigate("/login", { replace: true });
+          } else {
+            Swal.fire({
+              title: "에러",
+              text: res.message,
+              icon: "error",
+              confirmButtonColor: "#002560",
+              confirmButtonText: "확인",
+            });
           }
         }
       })

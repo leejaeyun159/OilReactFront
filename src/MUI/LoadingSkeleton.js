@@ -53,7 +53,6 @@ export default function LoadingSkeleton() {
         width={"100%"}
         height={80}
       />
-      
     </Stack>
   );
 }

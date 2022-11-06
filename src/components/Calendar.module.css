@@ -47,8 +47,12 @@
     position: relative;
 }
 
-.feedBox > a {
+.feedBox > li {
     width: 100%;
+}
+
+.feedLoading {
+    margin-top:22px;
 }
 
 .Number {
@@ -66,6 +70,7 @@
     font-weight: 700;
     color:white;
 }
+
 .Negative{
     background-color: #db9791;
 }

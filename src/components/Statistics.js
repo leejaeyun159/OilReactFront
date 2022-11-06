@@ -180,12 +180,14 @@ let StatisticsData = [];
 const Statistics = () => {
   const [isDay, setIsDay] = useState("7");
   const [stat, setStat] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(AuthContext);
   const TOKEN = authCtx.token;
   const nickname = localStorage.getItem("USERNAME");
 
   const StatisticsHandler = useCallback(async (DAY = 7) => {
     try {
+      setIsLoading(true);
       const getFetch = await fetch(
         "http://54.64.27.138:8080/api/statistics?tab=" + DAY,
         {
@@ -217,6 +219,8 @@ const Statistics = () => {
       // console.log(StatisticsData);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -253,12 +257,13 @@ const Statistics = () => {
           <button onClick={() => nameHandler("Hundred")}>Hundred</button>|{" "}
           <button onClick={() => nameHandler("Year")}>Year</button>
         </div>
-      </div>
-      <div className={styled.StatisticsBox}>
         <h4>
           지난 {isDay}일간 {nickname} 회원님이 가장 많이 느낀 감정입니다
         </h4>
-        <MyResponsiveLine data={data} />
+      </div>
+      <div className={styled.StatisticsBox}>
+        {!isLoading && <MyResponsiveLine data={data} />}
+        {isLoading && <h4>데이터를 불러오는 중입니다..</h4>}
       </div>
     </div>
   );

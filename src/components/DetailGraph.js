@@ -6,7 +6,6 @@ import { saying } from "../API/optionData";
 import { Accordion, BasicModal } from "../MUI";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import CreateIcon from "@mui/icons-material/Create";
-import moment from "moment/moment";
 import Swal from "sweetalert2";
 import AuthContext from "../store/oil-context";
 import CreatePage from "./CreatePage";
@@ -29,7 +28,6 @@ let DIARYCONTENT = {
 };
 
 let highlights;
-let days;
 
 const DetailGraph = () => {
   const [modalPaging, setModalPage] = useState(false);
@@ -202,13 +200,6 @@ const DetailGraph = () => {
                       }).then((result) => {
                         if (result.isConfirmed) {
                           modalPageOpenHandler();
-                          // Swal.fire({
-                          //   title: "만료된 기간",
-                          //   text: "작성일자 기준 익일 새벽 4시까지만 수정하실 수 있습니다",
-                          //   icon: "error",
-                          //   confirmButtonColor: "#002560",
-                          //   confirmButtonText: "확인",
-                          // });
                         }
                       });
                     }}

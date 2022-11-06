@@ -1,68 +1,87 @@
 import Calendar from "react-calendar";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useContext, useEffect } from "react";
 import moment from "moment";
 import "react-calendar/dist/Calendar.css";
 import styled from "./Calendar.module.css";
-import "./Calendar.css"
-import { DiaryPage } from "../UI";
-import {Link} from 'react-router-dom';
+import { DiaryPage, Dot } from "../UI";
+import { Link } from "react-router-dom";
+import AuthContext from "../store/oil-context";
+import Skeleton from "@mui/material/Skeleton";
 
-const marks = [
-    "15-10-2022",
-    "03-10-2022",
-    "07-10-2022",
-    "12-10-2022",
-    "13-10-2022",
-    "15-10-2022"
-]
-
-const markCondition = {
-  "15-10-2022": "negative",
-  "03-10-2022": "negative",
-  "07-10-2022": "positive",
-  "12-10-2022": "default",
-  "13-10-2022": "default",
-  "15-10-2022": "default",
-};
-
-// let MARKCONDITION = {};
 let DAYSKEY = [];
+let MARKDATA = [];
+let MARKCONDITION = {};
+
 const OilCalendar = () => {
   const [date, setDate] = useState(new Date());
-  // const [isLoading,setIsLoading] = useState(false);
-  //   const GetHandler = useCallback(async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const response = await fetch(
-  //         "https://oil-logintest-default-rtdb.firebaseio.com/mockup.json"
-  //       ); // 달단위로 처리
-  //       if (!response.ok) throw new Error("Something went wrong!");
-  //       const res = await response.json();
-  //       for (const key in res) {
-  //         if (
-  //           DAYSKEY.includes(
-  //             moment(res[key].diary.content.timeStamp).format("DD-MM-YYYY")
-  //           )
-  //         )
-  //           break;
-  //         DAYSKEY.push(
-  //           moment(res[key].diary.content.timeStamp).format("DD-MM-YYYY")
-  //         ); //중복된 key값이 있으면 안불러옴
-  //         MARKCONDITION[
-  //           moment(res[key].diary.content.timeStamp).format("DD-MM-YYYY")
-  //         ] = res[key].document.sentiment;
-  //       }
-  //       console.log(DAYSKEY);
-  //       console.log(MARKCONDITION);
-  //     } catch (error) {
-  //       console.lot(error);
-  //     }
-  //     setIsLoading(true);
-  //   }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const authCtx = useContext(AuthContext);
+  const TOKEN = authCtx.token;
 
-  //   useEffect(() => {
-  //     GetHandler();
-  //   }, [GetHandler]);
+  const GetHandler = useCallback(async (date) => {
+    setDate(date);
+    DAYSKEY = [];
+    MARKDATA = [];
+    MARKCONDITION = {};
+    try {
+      setIsLoading(true);
+      const getFetch = await fetch(
+        "http://54.64.27.138:8080/api/calendar?y=" +
+          moment(date).format("YYYY") +
+          "&m=" +
+          moment(date).format("MM"),
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + TOKEN,
+          },
+          redirect: "follow",
+        }
+      );
+      const response = await getFetch.json();
+      const result = await response.data;
+
+      for (const key in result) {
+        let daysFormat =
+          result[key].yyyymmdd.slice(6, 8) +
+          "-" +
+          result[key].yyyymmdd.slice(4, 6) +
+          "-" +
+          result[key].yyyymmdd.slice(0, 4);
+
+        if (DAYSKEY.includes(daysFormat)) break;
+        DAYSKEY.push(daysFormat);
+        MARKDATA.push({
+          dayId: daysFormat,
+          id: result[key].id,
+          title: result[key].title,
+          days: result[key].yyyymmdd,
+          weather: result[key].weather + " Weather",
+          mmdd: result[key].yyyymmdd.slice(4, 9),
+          sentiment: result[key].sentiment,
+          CoditionPer: {
+            R: result[key].negative,
+            G: result[key].neutral,
+            B: result[key].positive,
+          },
+        });
+        MARKCONDITION[daysFormat] = result[key].sentiment;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+    console.log(MARKDATA);
+    console.log(moment(date).format("DD-MM-YYYY"));
+  }, []);
+
+  useEffect(() => {
+    GetHandler();
+  }, [GetHandler]);
+
+  const countByElement = (arr, val) => {
+    return arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+  };
 
   return (
     <div>
@@ -73,36 +92,37 @@ const OilCalendar = () => {
         </span>
         <Calendar
           className={styled["react-calendar"]}
-          onChange={setDate}
-          value={date}
+          onChange={GetHandler}
+          date={date}
           formatDay={(locale, date) => moment(date).format("DD")}
           calendarType="US"
-          tileClassName={({ date, view }) => {
+          tileContent={({ date }) => {
             if (
-              marks.find(
+              DAYSKEY.find(
                 (x) =>
                   x === moment(date).format("DD-MM-YYYY") &&
-                  markCondition[x] === "negative"
+                  MARKCONDITION[x] === "negative"
               )
             ) {
-              return "negativeDay";
+              return <Dot color="negative" />;
             } else if (
-              marks.find(
+              DAYSKEY.find(
                 (x) =>
                   x === moment(date).format("DD-MM-YYYY") &&
-                  markCondition[x] === "default"
+                  MARKCONDITION[x] === "neutral"
               )
             ) {
-              return "defaultDay";
+              return <Dot color="neutral" />;
             } else if (
-              marks.find(
+              DAYSKEY.find(
                 (x) =>
                   x === moment(date).format("DD-MM-YYYY") &&
-                  markCondition[x] === "positive"
+                  MARKCONDITION[x] === "positive"
               )
             ) {
-              return "positiveDay";
+              return <Dot color="positive" />;
             }
+            return <Dot />;
           }}
         />
         <h3 className={styled.dateTitle}>
@@ -113,38 +133,51 @@ const OilCalendar = () => {
             className={`${styled.Condition} ${styled.Negative}`}
             color={"#db9791"}
           >
-            부 정 1
+            부 정 {countByElement(Object.values(MARKCONDITION), "negative")}
           </div>
           <div
             className={`${styled.Condition} ${styled.Neutral}`}
             color={"#CADB69"}
           >
-            평 범 3
+            평 범 {countByElement(Object.values(MARKCONDITION), "neutral")}
           </div>
           <div
             className={`${styled.Condition} ${styled.Positive}`}
             color={"#80abdb"}
           >
-            긍 정 1
+            긍 정 {countByElement(Object.values(MARKCONDITION), "positive")}
           </div>
         </span>
       </div>
-      <div className={styled.feedBox}>
-        <Link to="/diarydetail?postId=diary1">
-          <DiaryPage
-            key={"diary1"}
-            title={"소나기 일부 발췌"}
-            days={"20221023 PM"}
-            weather={"Rainy Weather"}
-            mmdd={"1023"}
-            preview={{
-              negative: 90.00112,
-              positive: 0.26289228,
-              neutral: 9.735989,
-            }}
-          />
-        </Link>
-      </div>
+      {!isLoading && (
+        <ul className={styled.feedBox}>
+          {MARKDATA.filter(
+            (data) => data.dayId === moment(date).format("DD-MM-YYYY")
+          ).map((data) => (
+            <li key={data.id}>
+              <Link to={"/diarydetail?postId=" + data.id}>
+                <DiaryPage
+                  key={data.id}
+                  title={data.title}
+                  days={data.days}
+                  weather={data.weather}
+                  mmdd={data.mmdd}
+                  preview={data.CoditionPer}
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      {isLoading && (
+        <Skeleton
+          className={styled.feedLoading}
+          sx={{ borderRadius: "0 0 15px 0", bgcolor: "#e9eef7" }}
+          variant="rectangular"
+          width={"100%"}
+          height={80}
+        />
+      )}
     </div>
   );
 };

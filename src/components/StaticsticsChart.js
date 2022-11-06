@@ -6,7 +6,7 @@ const MyResponsiveLine = (props) => {
   return (
     <ResponsiveLine
       data={props.data}
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 30, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
@@ -18,15 +18,7 @@ const MyResponsiveLine = (props) => {
       yFormat=" >-.2f"
       axisTop={null}
       axisRight={null}
-      axisBottom={{
-        orient: "bottom",
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: "감정분석통계",
-        legendOffset: 36,
-        legendPosition: "middle",
-      }}
+      axisBottom={null}
       axisLeft={{
         orient: "left",
         tickSize: 5,
@@ -39,21 +31,22 @@ const MyResponsiveLine = (props) => {
       enableGridX={false}
       colors={{ scheme: "accent" }}
       lineWidth={3}
-      pointSize={8}
+      pointSize={3}
       pointColor={{ from: "color", modifiers: [] }}
       pointBorderWidth={6}
       pointBorderColor={{ from: "serieColor", modifiers: [] }}
       pointLabelYOffset={-12}
       enableArea={false}
+      enablePoints={false}
       useMesh={true}
       animate={false}
       legends={[
         {
-          anchor: "top-right",
-          direction: "column",
+          anchor: "top",
+          direction: "row",
           justify: false,
-          translateX: 94,
-          translateY: 9,
+          translateX: 0,
+          translateY: -25,
           itemsSpacing: 0,
           itemDirection: "left-to-right",
           itemWidth: 80,

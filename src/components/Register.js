@@ -24,8 +24,6 @@ const Register = () => {
   const passwordInputRef = useRef();
   const passwordInputConfirmRef = useRef();
 
-  const navigate = useNavigate();
-
   const lastButton = isEqual && isValid && isAuthCode;
 
   const {
@@ -112,10 +110,6 @@ const Register = () => {
       url: "http://54.64.27.138:8080/api/auth/register",
     };
     registerBody(requestBody, "register");
-    localStorage.removeItem("AUTHCODE");
-    localStorage.removeItem("EMAIL");
-    console.log("결과" + registerRes.success);
-    navigate("/login", { replace: true });
   };
 
   return (
@@ -175,7 +169,7 @@ const Register = () => {
       />
       <span className={styled.pwSpan}>
         <p>비밀번호 유효 {isValid ? "✅" : "⬜"}</p>
-        <p>비밀번호 일치{isEqual ? "✅" : "⬜"}</p>
+        <p>비밀번호 일치 {isEqual ? "✅" : "⬜"}</p>
       </span>
       <h3>개인정보 취급방침 동의</h3>
       <div id="privacy">{text}</div>

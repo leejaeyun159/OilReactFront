@@ -9,7 +9,6 @@ import CreatePage from "./CreatePage";
 import { DiaryPage } from "../UI";
 import { useState, useCallback, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import AuthContext from "../store/oil-context";
 
 let MAINFEED = [];

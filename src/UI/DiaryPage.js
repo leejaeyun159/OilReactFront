@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const ConditionPreview = styled.div`
   border: solid white 2px;
@@ -41,7 +41,7 @@ const Background = styled.div`
     font-size: 14px;
     font-weight: 400;
     z-index: 2;
-    color:black;
+    color: black;
   }
   & > .MMDD {
     position: absolute;
@@ -86,16 +86,16 @@ const Background = styled.div`
   }
 `;
 
-const DiaryPage =(props)=>{
-    return (
-        <Background>
-          <div className="mainTitle">{props.title}</div>
-          <div className="weatherDay">
-            {props.days} | {props.weather}
-          </div>
-          <div className="MMDD">{props.mmdd}</div>
-          <ConditionPreview preview={props.preview} />
-        </Background>
-    );
-}
+const DiaryPage = (props) => {
+  return (
+    <Background>
+      <div className="mainTitle">{props.title}</div>
+      <div className="weatherDay">
+        {props.days} | {props.weather}
+      </div>
+      <div className="MMDD">{props.mmdd}</div>
+      <ConditionPreview preview={props.preview} />
+    </Background>
+  );
+};
 export default DiaryPage;
