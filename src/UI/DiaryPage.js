@@ -52,6 +52,8 @@ const Background = styled.div`
     font-family: "Oswald", sans-serif;
     color: #baceef;
     letter-spacing: -5px;
+    text-align: left;
+    width: 120px;
     z-index: 0;
   }
 
