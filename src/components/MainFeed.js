@@ -10,6 +10,7 @@ import { DiaryPage } from "../UI";
 import { useState, useCallback, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../store/oil-context";
+import { HOSTIP } from "../API/privateText";
 
 let MAINFEED = [];
 let FEEDKEY = [];
@@ -41,7 +42,7 @@ const MainFeed = () => {
     FEEDKEY = [];
 
     try {
-      const getFetch = await fetch("http://54.64.27.138:8080/api/main?page=0", {
+      const getFetch = await fetch(HOSTIP + "api/main?page=0", {
         method: "GET",
         headers: getRequestPayload.headers,
         redirect: "follow",
@@ -66,7 +67,6 @@ const MainFeed = () => {
           },
         });
       }
-      console.log(result);
     } catch (error) {
       console.log(error);
       setError(error);
@@ -76,7 +76,6 @@ const MainFeed = () => {
 
   useEffect(() => {
     GetHandler();
-    console.log("렌더링");
   }, [GetHandler]);
 
   return (

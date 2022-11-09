@@ -1,0 +1,21 @@
+[debug] [2022-11-07T13:23:47.308Z] ----------------------------------------------------------------------
+[debug] [2022-11-07T13:23:47.311Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\이재윤\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-11-07T13:23:47.312Z] CLI Version:   11.16.0
+[debug] [2022-11-07T13:23:47.313Z] Platform:      win32
+[debug] [2022-11-07T13:23:47.313Z] Node Version:  v16.17.0
+[debug] [2022-11-07T13:23:47.316Z] Time:          Mon Nov 07 2022 22:23:47 GMT+0900 (대한민국 표준시)
+[debug] [2022-11-07T13:23:47.316Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-11-07T13:23:47.340Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-11-07T13:23:47.341Z] > authorizing via signed-in user (noww_yun@likelion.org)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\이재윤\Desktop\졸작프로토타입\oil-front
+

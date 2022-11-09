@@ -2,10 +2,10 @@ import styled from "./Register.module.css";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useRef, useState } from "react";
 import { TextField, Button } from "../UI";
-import { text } from "../API/privacy";
+import { text } from "../API/privateText";
 import usePost from "../Hooks/use-post";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { HOSTIP } from "../API/privateText";
 
 const VALIDCHECK = {
   EMAILVALID: /\w+@\w+\.\w+(\.\w+)?/,
@@ -68,7 +68,7 @@ const Register = () => {
     const requestBody = {
       email: enteredEmail,
       type: "register",
-      url: "http://54.64.27.138:8080/api/auth/email-key",
+      url: HOSTIP + "api/auth/email-key",
     };
     emailreqBody(requestBody, "emailSend"); //이메일 전송
   };
@@ -107,7 +107,7 @@ const Register = () => {
       email: enteredEmail,
       password: enteredPassword,
       nickname: enteredNick,
-      url: "http://54.64.27.138:8080/api/auth/register",
+      url: HOSTIP + "api/auth/register",
     };
     registerBody(requestBody, "register");
   };

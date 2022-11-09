@@ -4,6 +4,7 @@ import { TextField, Button, Card } from "../UI";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import usePost from "../Hooks/use-post";
+import { HOSTIP } from "../API/privateText";
 
 const Login = () => {
   localStorage.clear();
@@ -19,7 +20,7 @@ const Login = () => {
     const requestBody = {
       email: enteredEmail,
       password: enteredPassword,
-      url: "http://54.64.27.138:8080/api/auth/login",
+      url: HOSTIP + "api/auth/login",
     };
     loginBody(requestBody, "login");
   };

@@ -46,3 +46,20 @@
     height: 380px;
     position: relative;
 }
+
+.StatisticsBox > span {
+    background-color: var(--maincolor);
+    width: 100%;
+    color:white;
+    padding:0;
+    margin: 0 auto;
+    max-width: 640px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.StatisticsBox>span>h4{
+    font-weight: 300;
+    margin: 6px;
+}

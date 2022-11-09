@@ -65,6 +65,9 @@ const App = () => {
             {isLoggedIn && (
               <Route path="/delAccount" element={<DeleteAccount />} />
             )}
+            {isLoggedIn && (
+              <Route path="./search" element={<SearchingPage />} />
+            )}
             {/* 인증했을 시에 나오는 창 */}
 
             <Route

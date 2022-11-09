@@ -6,6 +6,7 @@ import usePost from "../Hooks/use-post";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/oil-context";
+import { HOSTIP } from "../API/privateText";
 
 const VALIDCHECK = {
   EMAILVALID: /\w+@\w+\.\w+(\.\w+)?/,
@@ -40,7 +41,7 @@ const FindPasswordSend = () => {
     const requestBody = {
       email: enteredEmail,
       type: "password",
-      url: "http://54.64.27.138:8080/api/auth/email-key",
+      url: HOSTIP + "api/auth/email-key",
     };
     emailreqBody(requestBody, "emailSend");
   };

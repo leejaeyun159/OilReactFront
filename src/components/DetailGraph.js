@@ -9,6 +9,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import Swal from "sweetalert2";
 import AuthContext from "../store/oil-context";
 import CreatePage from "./CreatePage";
+import { HOSTIP } from "../API/privateText";
 
 let DIARYCONTENT = {
   id: "",
@@ -54,24 +55,20 @@ const DetailGraph = () => {
     setIsLoading(true);
     highlights = "";
     try {
-      const getFetch = await fetch(
-        "http://54.64.27.138:8080/api/posts/" + code,
-        {
-          method: "GET",
-          headers: getRequestPayload.headers,
-          redirect: "follow",
-        }
-      );
+      const getFetch = await fetch(HOSTIP + "api/posts/" + code, {
+        method: "GET",
+        headers: getRequestPayload.headers,
+        redirect: "follow",
+      });
       const response = await getFetch.json();
       const result = response.data;
-      console.log(result);
       DIARYCONTENT.id = result.id;
       DIARYCONTENT.title = result.title;
       DIARYCONTENT.days = result.yyyymmdd;
       DIARYCONTENT.weather = result.weather + " Weather";
       DIARYCONTENT.mmdd = result.yyyymmdd.slice(4, 9);
-      DIARYCONTENT.highlights = result.highlights
-        ? result.highlights
+      DIARYCONTENT.highlights = result.highlight
+        ? result.highlight
         : "오늘의 한마디가 없습니다";
       DIARYCONTENT.sentences = result.content;
       DIARYCONTENT.sentiment =
@@ -99,16 +96,13 @@ const DetailGraph = () => {
     setIsLoading(true);
     highlights = "";
     try {
-      const getFetch = await fetch(
-        "http://54.64.27.138:8080/api/posts/" + code,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: getRequestPayload.headers["Authorization"],
-          },
-          redirect: "follow",
-        }
-      );
+      const getFetch = await fetch(HOSTIP + "api/posts/" + code, {
+        method: "DELETE",
+        headers: {
+          Authorization: getRequestPayload.headers["Authorization"],
+        },
+        redirect: "follow",
+      });
       const response = getFetch.json();
       navigate("/mainFeed", { replace: true });
       Swal.fire({

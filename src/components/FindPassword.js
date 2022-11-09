@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import usePut from "../Hooks/use-put";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
+import { HOSTIP } from "../API/privateText";
 
 const PWVAILD = /(?=.*\d)(?=.*?[#?!@$%^&*-])(?=.*[a-zA-ZS]).{6,}/; //비밀번호 유효성 검사
 
@@ -38,7 +39,7 @@ const FindPassword = () => {
     const requestConfig = {
       email: enteredEmail,
       password: enterNewPassword,
-      url: "http://54.64.27.138:8080/api/auth/password",
+      url: HOSTIP + "api/auth/password",
     };
     sendRequest(requestConfig, "passwordChange");
     localStorage.removeItem("EMAIL");

@@ -1,5 +1,6 @@
 import Calendar from "react-calendar";
 import { useState, useCallback, useContext, useEffect } from "react";
+import { HOSTIP } from "../API/privateText";
 import moment from "moment";
 import "react-calendar/dist/Calendar.css";
 import styled from "./Calendar.module.css";
@@ -26,7 +27,8 @@ const OilCalendar = () => {
     try {
       setIsLoading(true);
       const getFetch = await fetch(
-        "http://54.64.27.138:8080/api/calendar?y=" +
+        HOSTIP +
+          "api/calendar?y=" +
           moment(date).format("YYYY") +
           "&m=" +
           moment(date).format("MM"),
@@ -71,8 +73,6 @@ const OilCalendar = () => {
       console.log(error);
     }
     setIsLoading(false);
-    console.log(MARKDATA);
-    console.log(moment(date).format("DD-MM-YYYY"));
   }, []);
 
   useEffect(() => {

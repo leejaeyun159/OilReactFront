@@ -6,7 +6,7 @@ const MyResponsiveLine = (props) => {
   return (
     <ResponsiveLine
       data={props.data}
-      margin={{ top: 50, right: 30, bottom: 50, left: 60 }}
+      margin={{ top: 30, right: 30, bottom: 10, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
@@ -36,7 +36,7 @@ const MyResponsiveLine = (props) => {
       pointBorderWidth={6}
       pointBorderColor={{ from: "serieColor", modifiers: [] }}
       pointLabelYOffset={-12}
-      enableArea={false}
+      enableArea={true}
       enablePoints={false}
       useMesh={true}
       animate={false}

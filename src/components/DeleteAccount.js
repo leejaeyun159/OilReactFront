@@ -1,11 +1,11 @@
 import styled from "./DeleteAccount.module.css";
 import { useState, useCallback, useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button, TextField } from "../UI";
 import AuthContext from "../store/oil-context";
 import Swal from "sweetalert2";
 import LinearProgress from "@mui/material/LinearProgress";
 import qs from "qs";
+import { HOSTIP } from "../API/privateText";
 
 const DeleteAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +14,6 @@ const DeleteAccount = () => {
   const TOKEN = AuthCtx.token;
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const naviate = useNavigate();
 
   const deleteRequestPayload = {
     headers: {
@@ -29,18 +28,15 @@ const DeleteAccount = () => {
 
     setIsLoading(true);
     try {
-      const getFetch = await fetch(
-        "http://54.64.27.138:8080/api/users/account",
-        {
-          method: "DELETE",
-          redirect: "follow",
-          headers: deleteRequestPayload.headers,
-          body: qs.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-          }),
-        }
-      );
+      const getFetch = await fetch(HOSTIP + "api/users/account", {
+        method: "DELETE",
+        redirect: "follow",
+        headers: deleteRequestPayload.headers,
+        body: qs.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+        }),
+      });
       const response = getFetch.json();
       Swal.fire({
         title: "삭제완료",

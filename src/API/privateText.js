@@ -12,4 +12,6 @@ const text = `
   4. <해당 개인정보처리자의 개인정보 처리업무>
    <개인정보 처리업무에 따른 처리목적>으로 개인정보를 처리합니다. `;
 
-export {text};
+const HOSTIP = "http://54.64.27.138:8080/";
+
+export { text, HOSTIP };

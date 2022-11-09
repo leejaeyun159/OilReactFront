@@ -7,6 +7,7 @@ import useValid from "../Hooks/use-valid";
 import AuthContext from "../store/oil-context";
 import usePost from "../Hooks/use-post";
 import usePut from "../Hooks/use-put";
+import { HOSTIP } from "../API/privateText";
 
 const CreatePage = (props) => {
   const titleInputRef = useRef();
@@ -63,7 +64,7 @@ const CreatePage = (props) => {
         title: enterdTitle,
         content: enteredText,
         weather: weatherPick,
-        url: "http://54.64.27.138:8080/api/posts/" + props.data.id,
+        url: HOSTIP + "api/posts/" + props.data.id,
       };
       sendPutRequest(requestBody, "putDiary", props.close, props.onPost);
     } else {
@@ -71,7 +72,7 @@ const CreatePage = (props) => {
         title: enterdTitle,
         content: enteredText,
         weather: weatherPick,
-        url: "http://54.64.27.138:8080/api/posts/write",
+        url: HOSTIP + "api/posts/write",
       };
       sendPostRequest(requsetBody, "postDiary", props.close, props.onPost);
     }

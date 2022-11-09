@@ -3,11 +3,11 @@ import styled from "styled-components";
 const Dot = styled.div`
   background-color: ${(props) =>
     props.color === "positive"
-      ? "red"
+      ? "blue"
       : props.color === "neutral"
       ? "green"
       : props.color === "negative"
-      ? "blue"
+      ? "red"
       : "white"};
   border: solid white 2px;
   border-radius: 15px;
