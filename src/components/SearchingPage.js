@@ -65,7 +65,7 @@ const SearchingPage = () => {
       setIsError(error);
     }
     setIsLoading(false);
-  }, []);
+  }, [contents]);
 
   useEffect(() => {
     GetHandler();

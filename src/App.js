@@ -18,12 +18,24 @@ import {
 } from "./components";
 import AuthContext from "./store/oil-context";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import ChannelService from "./API/ChannelService";
 
 const App = () => {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
   const location = useLocation();
-
+  if (isLoggedIn && location.pathname === "/faq") {
+    const chennel = ChannelService.boot({
+      pluginKey: "5a4da9d3-9851-4899-8536-71ca218ccd42", //please fill with your plugin key
+      // memberId: localStorage.getItem("USERNAME"), //fill with user id
+      profile: {
+        name: localStorage.getItem("USERNAME"), //fill with user name
+        // mobileNumber: "010-0000-0000", //fill with user phone number
+      },
+    });
+  } else {
+    const chennel = ChannelService.shutdown({});
+  }
   return (
     <>
       <Nav />
