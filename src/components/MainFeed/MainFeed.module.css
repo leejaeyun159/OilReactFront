@@ -1,0 +1,32 @@
+.div{
+    width: 100%;
+}
+
+.div > p {
+    color:var(--maincolor);
+    text-align: right;
+    margin: 0 5px 0 0;
+    font-size: 12px;
+}
+
+.btn{
+    position: fixed; 
+    bottom: 2%;
+    right: 2%;
+}
+
+.remotePage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.remotePage > button {
+    margin: 0;
+}
+
+.remotePage > p {
+    margin: 0;
+    color: var(--maincolor);
+}

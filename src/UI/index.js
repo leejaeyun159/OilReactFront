@@ -1,27 +1,27 @@
-import ProgressBar from "./ProgressBar";
-import Card from "./Card";
-import Clock from "./Clock";
-import Wave from "./Wave";
-import Nav from "./Nav";
-import DiaryPage from "./DiaryPage";
-import Highlight from "./Highlight";
-import TextField from "./TextField";
 import Button from "./Button";
-import Footer from "./Footer";
+import Card from "./Card";
+import DiaryPage from "./DiaryPage";
 import DiaryTextField from "./DiaryTextField";
 import Dot from "./Dot";
+import Footer from "./Footer";
+import Highlight from "./Highlight";
+import Nav from "./Nav";
+import ProgressBar from "./ProgressBar";
+import MyResponsiveLine from "./StaticsticsChart";
+import TextField from "./TextField";
+import Wave from "./Wave";
 
 export {
-  ProgressBar,
-  Card,
-  Clock,
-  Wave,
-  Nav,
-  DiaryPage,
-  Highlight,
-  TextField,
   Button,
-  Footer,
+  Card,
+  DiaryPage,
   DiaryTextField,
   Dot,
+  Footer,
+  Highlight,
+  Nav,
+  ProgressBar,
+  MyResponsiveLine,
+  TextField,
+  Wave,
 };

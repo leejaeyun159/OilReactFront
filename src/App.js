@@ -1,9 +1,5 @@
-import "./App.css";
-import React, { useContext } from "react";
-import { Nav, Footer } from "./UI";
-import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import {
-  Calendar,
+  OilCalendar,
   DetailGraph,
   FindPassword,
   InitialPage,
@@ -16,9 +12,13 @@ import {
   FAQ,
   DeleteAccount,
 } from "./components";
-import AuthContext from "./store/oil-context";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import React, { useContext } from "react";
+import { Nav, Footer } from "./UI";
 import ChannelService from "./API/ChannelService";
+import AuthContext from "./store/oil-context";
+import "./App.css";
 
 const App = () => {
   const authCtx = useContext(AuthContext);
@@ -26,11 +26,9 @@ const App = () => {
   const location = useLocation();
   if (isLoggedIn && location.pathname === "/faq") {
     const chennel = ChannelService.boot({
-      pluginKey: "5a4da9d3-9851-4899-8536-71ca218ccd42", //please fill with your plugin key
-      // memberId: localStorage.getItem("USERNAME"), //fill with user id
+      pluginKey: "5a4da9d3-9851-4899-8536-71ca218ccd42",
       profile: {
-        name: localStorage.getItem("USERNAME"), //fill with user name
-        // mobileNumber: "010-0000-0000", //fill with user phone number
+        name: localStorage.getItem("USERNAME"),
       },
     });
   } else {
@@ -64,7 +62,7 @@ const App = () => {
             {isLoggedIn && (
               <Route path="/authchangePw" element={<FindPassword />} />
             )}
-            {isLoggedIn && <Route path="/calendar" element={<Calendar />} />}
+            {isLoggedIn && <Route path="/calendar" element={<OilCalendar />} />}
             {isLoggedIn && (
               <Route path="/diarydetail" element={<DetailGraph />} />
             )}

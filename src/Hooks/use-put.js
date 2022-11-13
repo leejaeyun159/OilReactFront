@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import qs from "qs";
-import Swal from "sweetalert2";
 import OilContext from "../store/oil-context";
+import Swal from "sweetalert2";
+import qs from "qs";
 
 const usePut = () => {
   const [isResponse, setIsResponse] = useState(null);

@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import qs from "qs";
+import { useState, useContext } from "react";
 import OilContext from "../store/oil-context";
 import Swal from "sweetalert2";
+import qs from "qs";
 
 const usePost = () => {
   const [isResponse, setIsResponse] = useState(null);

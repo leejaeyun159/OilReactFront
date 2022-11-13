@@ -1,14 +1,13 @@
-import { useState, useContext,useEffect } from 'react';
-import OilContext from '../store/oil-context';
-import Swal from 'sweetalert2';
+import { useState, useContext, useEffect } from "react";
+import OilContext from "../store/oil-context";
 
 const useGet = (URL, callback, mode) => {
   const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(OilContext);
   const TOKEN = authCtx.token;
   let getRequestPayload = {};
-  let data ={};
-  
+  let data = {};
+
   switch (mode) {
     case "requestMain": //메인피드 가져오기
       getRequestPayload = {

@@ -1,0 +1,24 @@
+.searchTitle {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px auto;
+    min-width: 280px;
+    max-width: 350px;
+    position: relative;
+    margin-top: 30px;
+    border-bottom: solid 3px var(--maincolor);
+}
+
+.searchTitle > span {
+    display: flex;
+    justify-content: space-start;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.searchTitle > span > h4 {
+    font-weight: 400;
+    font-size: 14px;
+    color: gray;
+}
